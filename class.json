@@ -1,0 +1,8 @@
+{
+    "pessoa": {
+        "herança": {},
+        "atributos": ["printName()"],
+        "metodos": {}
+    }
+    
+}
