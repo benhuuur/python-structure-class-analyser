@@ -34,7 +34,15 @@ class AST_handler:
 
     @staticmethod
     def _get_assignment(statement):
-        assignment_name = [Name.id for Name in statement.targets]
-        assignment_encapsulation = [f"privado {name}" if name.startswith('_') else f"público {name}" for name in assignment_name]
-        return assignments_info(name = assignment_name, data_type=None, encapsulation= assignment_encapsulation)
+        # print(print(ast.dump(statement)))
+        assignment_names = list()
+        for target in statement.targets:
+            if isinstance(target, ast.Name):
+                assignment_names.append(target.id)
+            elif isinstance(target, ast.Tuple):
+                assignment_names = [name.id for name in target.elts if isinstance(name, ast.Name)]
+        print(assignment_names)
+        assignment_encapsulation = [f"Private" if name.startswith('_') else f"Public" for name in assignment_names]
+        return assignments_info(name=assignment_names, data_type=None, encapsulation=assignment_encapsulation)
+
     
