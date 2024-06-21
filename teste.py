@@ -17,6 +17,10 @@ class Animal(Ser_Vivo):
     def Barulho(self):
         print("sjalkjaksdj")
 
+class Humano( Ser_Vivo ):
+    animal, animal2 = Animal()
+    def Barulho(self):
+        print("sjalkjaksdj")
 
 pessoa2 = Pessoa("Maria", 25)
 pessoa2.apresentar()
