@@ -1,27 +1,28 @@
 Module(
     body=[
-        # Definição da classe 'Pessoa'
         ClassDef(
             name='Pessoa',
-            bases=[],  # Sem classes base
-            keywords=[],  # Sem palavras-chave
+            bases=[],
+            keywords=[],
             body=[
-                # Método '__init__'
+                Assign(
+                    targets=[Name(id='sobrenome', ctx=Store())],
+                    value=Constant(value='')
+                ),
                 FunctionDef(
                     name='__init__',
                     args=arguments(
-                        posonlyargs=[],  # Sem argumentos obrigatórios apenas posicionais
+                        posonlyargs=[],
                         args=[
-                            arg(arg='self'),  # Argumento 'self'
-                            arg(arg='nome'),  # Argumento 'nome'
-                            arg(arg='idade')   # Argumento 'idade'
+                            arg(arg='self'),
+                            arg(arg='nome'),
+                            arg(arg='idade')
                         ],
-                        kwonlyargs=[],  # Sem argumentos de palavra-chave apenas
-                        kw_defaults=[],  # Valores padrão para argumentos de palavra-chave
-                        defaults=[]      # Valores padrão para argumentos posicionais
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
                     ),
                     body=[
-                        # Atribuições no método '__init__'
                         Assign(
                             targets=[Attribute(value=Name(id='self', ctx=Load()), attr='nome', ctx=Store())],
                             value=Name(id='nome', ctx=Load())
@@ -31,44 +32,47 @@ Module(
                             value=Name(id='idade', ctx=Load())
                         )
                     ],
-                    decorator_list=[]  # Sem decoradores
+                    decorator_list=[]
                 ),
-                
-                # Método 'apresentar'
                 FunctionDef(
                     name='apresentar',
                     args=arguments(
-                        posonlyargs=[],  # Sem argumentos obrigatórios apenas posicionais
-                        args=[arg(arg='self')],  # Argumento 'self'
-                        kwonlyargs=[],  # Sem argumentos de palavra-chave apenas
-                        kw_defaults=[],  # Valores padrão para argumentos de palavra-chave
-                        defaults=[]      # Valores padrão para argumentos posicionais
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
                     ),
                     body=[
-                        # Expressão para imprimir uma mensagem formatada
                         Expr(
                             value=Call(
                                 func=Name(id='print', ctx=Load()),
                                 args=[
-                                    JoinedStr(values=[
-                                        Constant(value='Olá, eu sou '),
-                                        FormattedValue(value=Attribute(value=Name(id='self', ctx=Load()), attr='nome', ctx=Load()), conversion=-1),
-                                        Constant(value=' e tenho '),
-                                        FormattedValue(value=Attribute(value=Name(id='self', ctx=Load()), attr='idade', ctx=Load()), conversion=-1),
-                                        Constant(value=' anos.')
-                                    ])
+                                    JoinedStr(
+                                        values=[
+                                            Constant(value='Olá, eu sou '),
+                                            FormattedValue(
+                                                value=Attribute(value=Name(id='self', ctx=Load()), attr='nome', ctx=Load()),
+                                                conversion=-1
+                                            ),
+                                            Constant(value=' e tenho '),
+                                            FormattedValue(
+                                                value=Attribute(value=Name(id='self', ctx=Load()), attr='idade', ctx=Load()),
+                                                conversion=-1
+                                            ),
+                                            Constant(value=' anos.')
+                                        ]
+                                    )
                                 ],
                                 keywords=[]
                             )
                         )
                     ],
-                    decorator_list=[]  # Sem decoradores
+                    decorator_list=[]
                 )
             ],
-            decorator_list=[]  # Sem decoradores da classe 'Pessoa'
+            decorator_list=[]
         ),
-        
-        # Atribuição 'pessoa1 = Pessoa('João', 30)'
         Assign(
             targets=[Name(id='pessoa1', ctx=Store())],
             value=Call(
@@ -77,63 +81,54 @@ Module(
                 keywords=[]
             )
         ),
-        
-        # Chamada para o método 'apresentar' de 'pessoa1'
-        Expr(
-            value=Call(
-                func=Attribute(value=Name(id='pessoa1', ctx=Load()), attr='apresentar', ctx=Load()),
-                args=[],
-                keywords=[]
-            )
-        ),
-        
-        # Definição da classe 'Ser_Vivo'
         ClassDef(
             name='Ser_Vivo',
-            bases=[],  # Sem classes base
-            keywords=[],  # Sem palavras-chave
+            bases=[],
+            keywords=[],
             body=[
-                # Método '__init__'
                 FunctionDef(
                     name='__init__',
                     args=arguments(
-                        posonlyargs=[],  # Sem argumentos obrigatórios apenas posicionais
-                        args=[arg(arg='self')],  # Argumento 'self'
-                        kwonlyargs=[],  # Sem argumentos de palavra-chave apenas
-                        kw_defaults=[],  # Valores padrão para argumentos de palavra-chave
-                        defaults=[]      # Valores padrão para argumentos posicionais
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
                     ),
                     body=[
-                        # Atribuição do atributo 'vivo = True' no método '__init__'
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='exemplo', ctx=Store())],
+                            value=Constant(value='')
+                        ),
                         Assign(
                             targets=[Attribute(value=Name(id='self', ctx=Load()), attr='vivo', ctx=Store())],
                             value=Constant(value=True)
                         )
                     ],
-                    decorator_list=[]  # Sem decoradores
+                    decorator_list=[]
                 )
             ],
-            decorator_list=[]  # Sem decoradores da classe 'Ser_Vivo'
+            decorator_list=[]
         ),
-        
-        # Definição da classe 'Animal' que herda de 'Ser_Vivo'
         ClassDef(
             name='Animal',
-            bases=[Name(id='Ser_Vivo', ctx=Load())],  # Classe base 'Ser_Vivo'
-            keywords=[],  # Sem palavras-chave
+            bases=[Name(id='Ser_Vivo', ctx=Load())],
+            keywords=[],
             body=[
-                # Método 'Barulho'
                 FunctionDef(
                     name='Barulho',
                     args=arguments(
-                        posonlyargs=[],  # Sem argumentos obrigatórios apenas posicionais
-                        args=[arg(arg='self')],  # Argumento 'self'
-                        kwonlyargs=[],  # Sem argumentos de palavra-chave apenas
-                        kw_defaults=[],  # Valores padrão para argumentos de palavra-chave
-                        defaults=[]      # Valores padrão para argumentos posicionais
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
                     ),
                     body=[
-                        # Expressão para imprimir um barulho genérico
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='exemplo', ctx=Store())],
+                            value=Constant(value='la')
+                        ),
                         Expr(
                             value=Call(
                                 func=Name(id='print', ctx=Load()),
@@ -142,40 +137,80 @@ Module(
                             )
                         )
                     ],
-                    decorator_list=[]  # Sem decoradores
+                    decorator_list=[]
                 )
             ],
-            decorator_list=[]  # Sem decoradores da classe 'Animal'
+            decorator_list=[]
         ),
-        
-        # Definição da classe 'Humano' que herda de 'Ser_Vivo'
         ClassDef(
             name='Humano',
-            bases=[Name(id='Ser_Vivo', ctx=Load())],  # Classe base 'Ser_Vivo'
-            keywords=[],  # Sem palavras-chave
+            bases=[Name(id='Ser_Vivo', ctx=Load())],
+            keywords=[],
             body=[
-                # Atribuição 'animal = Animal()'
                 Assign(
-                    targets=[Name(id='animal', ctx=Store())],
-                    value=Call(
-                        func=Name(id='Animal', ctx=Load()),
-                        args=[],
-                        keywords=[]
+                    targets=[Tuple(elts=[Name(id='animal', ctx=Store()), Name(id='animal2', ctx=Store())], ctx=Store())],
+                    value=Tuple(
+                        elts=[
+                            Call(
+                                func=Name(id='Animal', ctx=Load()),
+                                args=[],
+                                keywords=[]
+                            ),
+                            Call(
+                                func=Name(id='Animal', ctx=Load()),
+                                args=[],
+                                keywords=[]
+                            )
+                        ],
+                        ctx=Load()
                     )
                 ),
-                
-                # Método 'Barulho'
+                Assign(
+                    targets=[Name(id='sla', ctx=Store())],
+                    value=Constant(value='junin')
+                ),
+                FunctionDef(
+                    name='__init__',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Expr(
+                            value=Call(
+                                func=Attribute(
+                                    value=Call(
+                                        func=Name(id='super', ctx=Load()),
+                                        args=[],
+                                        keywords=[]
+                                    ),
+                                    attr='__init__',
+                                    ctx=Load()
+                                ),
+                                args=[],
+                                keywords=[]
+                            )
+                        ),
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='kaka', ctx=Store())],
+                            value=Constant(value='blessed')
+                        )
+                    ],
+                    decorator_list=[]
+                ),
                 FunctionDef(
                     name='Barulho',
                     args=arguments(
-                        posonlyargs=[],  # Sem argumentos obrigatórios apenas posicionais
-                        args=[arg(arg='self')],  # Argumento 'self'
-                        kwonlyargs=[],  # Sem argumentos de palavra-chave apenas
-                        kw_defaults=[],  # Valores padrão para argumentos de palavra-chave
-                        defaults=[]      # Valores padrão para argumentos posicionais
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
                     ),
                     body=[
-                        # Expressão para imprimir um barulho genérico
                         Expr(
                             value=Call(
                                 func=Name(id='print', ctx=Load()),
@@ -184,13 +219,11 @@ Module(
                             )
                         )
                     ],
-                    decorator_list=[]  # Sem decoradores
+                    decorator_list=[]
                 )
             ],
-            decorator_list=[]  # Sem decoradores da classe 'Humano'
+            decorator_list=[]
         ),
-        
-        # Atribuição 'pessoa2 = Pessoa('Maria', 25)'
         Assign(
             targets=[Name(id='pessoa2', ctx=Store())],
             value=Call(
@@ -199,23 +232,10 @@ Module(
                 keywords=[]
             )
         ),
-        
-        # Chamada para o método 'apresentar' de 'pessoa2'
-        Expr(
-            value=Call(
-                func=Attribute(value=Name(id='pessoa2', ctx=Load()), attr='apresentar', ctx=Load()),
-                args=[],
-                keywords=[]
-            )
-        ),
-        
-        # Atribuição da constante 'class_name = 'll''
         Assign(
             targets=[Name(id='class_name', ctx=Store())],
             value=Constant(value='ll')
         ),
-        
-        # Atribuição 'animal = Animal()'
         Assign(
             targets=[Name(id='animal', ctx=Store())],
             value=Call(
@@ -224,15 +244,35 @@ Module(
                 keywords=[]
             )
         ),
-        
-        # Chamada para o método 'Barulho' de 'animal'
         Expr(
             value=Call(
                 func=Attribute(value=Name(id='animal', ctx=Load()), attr='Barulho', ctx=Load()),
                 args=[],
                 keywords=[]
             )
+        ),
+        Expr(
+            value=Call(
+                func=Name(id='print', ctx=Load()),
+                args=[Attribute(value=Name(id='animal', ctx=Load()), attr='exemplo', ctx=Load())],
+                keywords=[]
+            )
+        ),
+        Assign(
+            targets=[Name(id='animal2', ctx=Store())],
+            value=Call(
+                func=Name(id='Animal', ctx=Load()),
+                args=[],
+                keywords=[]
+            )
+        ),
+        Expr(
+            value=Call(
+                func=Name(id='print', ctx=Load()),
+                args=[Attribute(value=Name(id='animal2', ctx=Load()), attr='exemplo', ctx=Load())],
+                keywords=[]
+            )
         )
     ],
-    type_ignores=[]  # Tipos ignorados
+    type_ignores=[]
 )

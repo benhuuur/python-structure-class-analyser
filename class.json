@@ -1,9 +1,124 @@
-{
-    "pessoa": {
-        "atributos": ["printName()"],
-        "metodos": {},
-        "herança": {}
+[
+    {
+        "name": "Produto",
+        "heritage": [],
+        "functions": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "codigo",
+                    "nome",
+                    "preco"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_informacoes",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ],
+        "assignments": [
+            {
+                "name": "codigo",
+                "data_type": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "nome",
+                "data_type": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "preco",
+                "data_type": null,
+                "encapsulation": "Public"
+            }
+        ]
+    },
+    {
+        "name": "Cliente",
+        "heritage": [],
+        "functions": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "nome",
+                    "email"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_dados",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ],
+        "assignments": [
+            {
+                "name": "nome",
+                "data_type": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "email",
+                "data_type": null,
+                "encapsulation": "Public"
+            }
+        ]
+    },
+    {
+        "name": "Pedido",
+        "heritage": [],
+        "functions": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "cliente"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "adicionar_produto",
+                "args": [
+                    "self",
+                    "produto"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "calcular_total",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_pedido",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ],
+        "assignments": [
+            {
+                "name": "cliente",
+                "data_type": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "produtos",
+                "data_type": null,
+                "encapsulation": "Public"
+            }
+        ]
     }
-
-    
-}
+]
