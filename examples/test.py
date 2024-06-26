@@ -25,7 +25,7 @@ class Animal(Ser_Vivo):
         print("sjalkjaksdj")
 
 
-class Humano(Ser_Vivo):
+class Humano(Ser_Vivo, Pessoa):
     animal, animal2 = Animal(), Animal()
     sla = "junin"
 
