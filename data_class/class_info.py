@@ -13,14 +13,26 @@ class class_info(JSON_serializable):
     """
 
     name: str
-    heritage: List[str]
-    functions: List[function_info]
-    assignments: List[assignments_info]
+    inheritance: List[str]
+    methods: List[function_info]
+    attributes: List[assignments_info]
 
     def to_dict(self):
+        """
+        Converts the class_info object into a dictionary representation suitable for JSON serialization.
+
+        Returns:
+            dict: A dictionary containing the class information.
+                {
+                    "class_name": str,          # The name of the class.
+                    "inheritance": List[str],   # List of inherited class names.
+                    "attributes": List[dict],   # List of dictionaries representing attributes (assignments_info objects).
+                    "methods": List[dict]       # List of dictionaries representing methods (function_info objects).
+                }
+        """
         return {
-            "name": self.name,
-            "heritage": self.heritage,
-            "functions": [function.__dict__ for function in self.functions],
-            "assignments": [assignment.__dict__ for assignment in self.assignments]
+            "class_name": self.name,
+            "inheritance": self.inheritance,
+            "attributes": [assignment.__dict__ for assignment in self.attributes],
+            "methods": [function.__dict__ for function in self.methods],
         }

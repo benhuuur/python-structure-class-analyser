@@ -9,5 +9,5 @@ class assignments_info:
     """
 
     name: str
-    data_type: Any
+    data_type: str
     encapsulation: str
