@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Any, List
+from typing import List
 
-from data_class.JSON_serializer import JSON_serializable
+from JSON_serializer import JSON_serializable
 from data_class.assignments_info import assignments_info
 from data_class.function_info import function_info
 

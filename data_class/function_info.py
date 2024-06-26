@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, List
 
-from data_class.JSON_serializer import JSON_serializable
-
 
 @dataclass
 class function_info():

@@ -1,8 +1,7 @@
-from AST_handler import AST_handler
-from data_class.JSON_serializer import JSON_serializer
+from AST.AST_handler import AST_handler
+from JSON_serializer import JSON_serializer
 
-
-tree = AST_handler.get_AST("GPT_teste.py")
+tree = AST_handler.get_AST("examples\GPT_teste.py")
 
 classes = AST_handler.get_classes(tree.body)
 print("\n")
