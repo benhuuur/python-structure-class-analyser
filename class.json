@@ -1,8 +1,25 @@
 [
     {
-        "name": "Produto",
-        "heritage": [],
-        "functions": [
+        "class_name": "Produto",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "codigo",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "nome",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "preco",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
             {
                 "name": "__init__",
                 "args": [
@@ -20,29 +37,24 @@
                 ],
                 "return_value": null
             }
-        ],
-        "assignments": [
-            {
-                "name": "codigo",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "nome",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "preco",
-                "data_type": null,
-                "encapsulation": "Public"
-            }
         ]
     },
     {
-        "name": "Cliente",
-        "heritage": [],
-        "functions": [
+        "class_name": "Cliente",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "nome",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "email",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
             {
                 "name": "__init__",
                 "args": [
@@ -59,24 +71,24 @@
                 ],
                 "return_value": null
             }
-        ],
-        "assignments": [
-            {
-                "name": "nome",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "email",
-                "data_type": null,
-                "encapsulation": "Public"
-            }
         ]
     },
     {
-        "name": "Pedido",
-        "heritage": [],
-        "functions": [
+        "class_name": "Pedido",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "cliente",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "produtos",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
             {
                 "name": "__init__",
                 "args": [
@@ -106,18 +118,6 @@
                     "self"
                 ],
                 "return_value": null
-            }
-        ],
-        "assignments": [
-            {
-                "name": "cliente",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "produtos",
-                "data_type": null,
-                "encapsulation": "Public"
             }
         ]
     }
