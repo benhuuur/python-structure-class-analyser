@@ -31,7 +31,7 @@ class AST_handler:
                     assignments.append(assignment)
 
                 curr_data = class_info(
-                    name=node.name, heritage=bases, functions=functions, assignments=assignments)
+                    name=node.name, inheritance=bases, methods=functions, attributes=assignments)
                 classes.append(curr_data)
         return classes
 
@@ -65,16 +65,24 @@ class AST_handler:
             if isinstance(target, ast.Name):
                 assignment_names.append(target.id)
             elif isinstance(target, ast.Tuple):
-                assignment_names = [
-                    name.id for name in target.elts if isinstance(name, ast.Name)]
+                assignment_names = assignment_names + \
+                    [name.id for name in target.elts if isinstance(
+                        name, ast.Name)]
             elif isinstance(target, ast.Attribute):
                 assignment_names.append(target.attr)
+
         assignment_encapsulation = [f"Private" if name.startswith(
             '_') else f"Public" for name in assignment_names]
 
+        assignment_data_type = list()
+        if isinstance(statement.value, ast.Constant):
+            assignment_data_type.append(f"{type(statement.value.value).__name__}")
+        else:
+            assignment_data_type.append("None")
+
         if (len(assignment_names) > 1):
-            return [assignments_info(name=assignment_names[i], data_type=None, encapsulation=assignment_encapsulation[i]) for i in range(len(assignment_names))]
-        return [assignments_info(name=assignment_names[0], data_type=None, encapsulation=assignment_encapsulation[0])]
+            return [assignments_info(name=assignment_names[i], data_type=assignment_data_type[i], encapsulation=assignment_encapsulation[i]) for i in range(len(assignment_names))]
+        return [assignments_info(name=assignment_names[0], data_type=assignment_data_type[0], encapsulation=assignment_encapsulation[0])]
 
     @staticmethod
     def _get_init_assignment(node_body):
