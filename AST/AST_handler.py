@@ -134,12 +134,19 @@ class AST_handler:
         assignment_encapsulation = [f"Private" if name.startswith(
             '_') else f"Public" for name in assignment_names]
 
+        print(statement.value)
         assignment_data_type = list()
         if isinstance(statement.value, ast.Constant):
             assignment_data_type.append(
                 f"{type(statement.value.value).__name__}")
+        if isinstance(statement.value, ast.Tuple):
+            #TODO logic to handle tuple
+            pass
         else:
             assignment_data_type.append("None")
+
+        print("assignment_data_type:", len(assignment_data_type))
+        print("assignment_names:", len(assignment_names))
 
         if (len(assignment_names) > 1):
             return [assignments_info(name=assignment_names[i], data_type=assignment_data_type[i], encapsulation=assignment_encapsulation[i]) for i in range(len(assignment_names))]
