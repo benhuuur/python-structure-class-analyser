@@ -77,7 +77,10 @@ Module(
             targets=[Name(id='pessoa1', ctx=Store())],
             value=Call(
                 func=Name(id='Pessoa', ctx=Load()),
-                args=[Constant(value='João'), Constant(value=30)],
+                args=[
+                    Constant(value='João'),
+                    Constant(value=30)
+                ],
                 keywords=[]
             )
         ),
@@ -144,23 +147,18 @@ Module(
         ),
         ClassDef(
             name='Humano',
-            bases=[Name(id='Ser_Vivo', ctx=Load())],
+            bases=[
+                Name(id='Ser_Vivo', ctx=Load()),
+                Name(id='Pessoa', ctx=Load())
+            ],
             keywords=[],
             body=[
                 Assign(
                     targets=[Tuple(elts=[Name(id='animal', ctx=Store()), Name(id='animal2', ctx=Store())], ctx=Store())],
                     value=Tuple(
                         elts=[
-                            Call(
-                                func=Name(id='Animal', ctx=Load()),
-                                args=[],
-                                keywords=[]
-                            ),
-                            Call(
-                                func=Name(id='Animal', ctx=Load()),
-                                args=[],
-                                keywords=[]
-                            )
+                            Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[]),
+                            Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
                         ],
                         ctx=Load()
                     )
@@ -228,7 +226,10 @@ Module(
             targets=[Name(id='pessoa2', ctx=Store())],
             value=Call(
                 func=Name(id='Pessoa', ctx=Load()),
-                args=[Constant(value='Maria'), Constant(value=25)],
+                args=[
+                    Constant(value='Maria'),
+                    Constant(value=25)
+                ],
                 keywords=[]
             )
         ),
@@ -238,11 +239,7 @@ Module(
         ),
         Assign(
             targets=[Name(id='animal', ctx=Store())],
-            value=Call(
-                func=Name(id='Animal', ctx=Load()),
-                args=[],
-                keywords=[]
-            )
+            value=Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
         ),
         Expr(
             value=Call(
@@ -260,11 +257,7 @@ Module(
         ),
         Assign(
             targets=[Name(id='animal2', ctx=Store())],
-            value=Call(
-                func=Name(id='Animal', ctx=Load()),
-                args=[],
-                keywords=[]
-            )
+            value=Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
         ),
         Expr(
             value=Call(

@@ -17,9 +17,24 @@ class AST_handler:
 
         Returns:
         - ast.AST: Abstract syntax tree representation of the parsed Python file.
+
+        Raises:
+        - FileNotFoundError: If the file specified by `file_path` does not exist.
+        - SyntaxError: If there is an error in parsing the Python code.
+        - OSError: If there is a general operating system error while accessing `file_path`.
         """
-        with open(file_path, "r") as file:
-            return ast.parse(file.read())
+        try:
+            with open(file_path, "r") as file:
+                return ast.parse(file.read())
+        except FileNotFoundError:
+            print(f"Error: File '{file_path}' not found.")
+            raise
+        except SyntaxError as e:
+            print(f"Syntax error in file '{file_path}': {e}")
+            raise
+        except OSError as e:
+            print(f"OS error while accessing file '{file_path}': {e}")
+            raise
 
     @staticmethod
     def print_tree(AST_tree):
@@ -51,12 +66,13 @@ class AST_handler:
                 functions = AST_handler.get_functions(node.body)
 
                 assignments = AST_handler.get_assignments(node.body)
+
                 for assignment in AST_handler._get_init_assignment(node.body):
                     assignments.append(assignment)
 
-                curr_data = class_info(
+                current_class = class_info(
                     name=node.name, inheritance=bases, methods=functions, attributes=assignments)
-                classes.append(curr_data)
+                classes.append(current_class)
         return classes
 
     @staticmethod
@@ -71,9 +87,11 @@ class AST_handler:
         - list: List of function_info objects representing the functions found in the node body.
         """
         functions = list()
+
         for statement in node_body:
             if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 functions.append(AST_handler._get_function(statement))
+
         return functions
 
     @staticmethod
@@ -89,6 +107,7 @@ class AST_handler:
         """
         function_name = statement.name
         arguments = [arg.arg for arg in statement.args.args]
+
         return function_info(name=function_name, args=arguments, return_value=None)
 
     @staticmethod
@@ -103,10 +122,12 @@ class AST_handler:
         - list: List of assignments_info objects representing the assignments found in the node body.
         """
         assignments = list()
+
         for statement in node_body:
             if isinstance(statement, ast.Assign):
                 for assignment in AST_handler._get_assignment(statement):
                     assignments.append(assignment)
+
         return assignments
 
     @staticmethod
@@ -120,37 +141,101 @@ class AST_handler:
         Returns:
         - list: List of assignments_info objects representing each assignment target found in the statement.
         """
-        assignment_names = list()
-        for target in statement.targets:
-            if isinstance(target, ast.Name):
-                assignment_names.append(target.id)
-            elif isinstance(target, ast.Tuple):
-                assignment_names = assignment_names + \
-                    [name.id for name in target.elts if isinstance(
-                        name, ast.Name)]
-            elif isinstance(target, ast.Attribute):
-                assignment_names.append(target.attr)
+        assignment_names = AST_handler._get_assignment_names(statement.targets)
 
-        assignment_encapsulation = [f"Private" if name.startswith(
-            '_') else f"Public" for name in assignment_names]
+        assignment_encapsulation = AST_handler._get_assignment_encapsulation(
+            assignment_names)
 
-        print(statement.value)
-        assignment_data_type = list()
-        if isinstance(statement.value, ast.Constant):
-            assignment_data_type.append(
-                f"{type(statement.value.value).__name__}")
-        if isinstance(statement.value, ast.Tuple):
-            #TODO logic to handle tuple
-            pass
-        else:
-            assignment_data_type.append("None")
-
-        print("assignment_data_type:", len(assignment_data_type))
-        print("assignment_names:", len(assignment_names))
+        assignment_data_type = AST_handler._get_assignment_data_type(
+            statement.value)
 
         if (len(assignment_names) > 1):
             return [assignments_info(name=assignment_names[i], data_type=assignment_data_type[i], encapsulation=assignment_encapsulation[i]) for i in range(len(assignment_names))]
+
         return [assignments_info(name=assignment_names[0], data_type=assignment_data_type[0], encapsulation=assignment_encapsulation[0])]
+
+    @staticmethod
+    def _get_assignment_names(statement_targets):
+        """
+        Extracts assignment names from AST nodes representing assignment targets.
+
+        Args:
+        - statement_targets (list of ast.AST): List of AST nodes representing assignment targets.
+
+        Returns:
+        - assignment_names (list of str): List containing the names of assignment targets extracted from `statement_targets`.
+        """
+        assignment_names = list()
+        for target in statement_targets:
+
+            #   when there is direct attribution of value and one assignment on line
+            if isinstance(target, ast.Name):
+                assignment_names.append(target.id)
+
+            #   when there is more than one assignment on the same line
+            elif isinstance(target, ast.Tuple):
+                #   when there is direct attribution
+                assignment_names += [name.id for name in target.elts if isinstance(
+                    name, ast.Name)]
+    
+            #   when there is a attribute assignment
+            elif isinstance(target, ast.Attribute):
+                assignment_names.append(target.attr)
+
+        return assignment_names
+
+    @staticmethod
+    def _get_assignment_encapsulation(assignment_names):
+        """
+        Determines the encapsulation type for each assignment name based on its naming convention.
+
+        Args:
+        - assignment_names (list of str): List of assignment names to determine encapsulation type for.
+
+        Returns:
+        - encapsulation_types (list of str): List containing the encapsulation type ("Private" or "Public") 
+          for each assignment name based on whether the name starts with an underscore (`_`) or not.
+        """
+        return [f"Private" if name.startswith(
+            '_') else f"Public" for name in assignment_names]
+
+    @staticmethod
+    def _get_assignment_data_type(statement_value):
+        """
+        Extracts assignment data type information from an AST node representing a statement value.
+
+        Args:
+        - statement_value (ast.AST): The AST node representing the statement value to extract data type information from.
+
+        Returns:
+        - assignment_data_type (list of str): A list containing extracted data type names of the statement value. 
+          Each element in the list is a string representing the type name of the corresponding part of the assignment.
+        """
+        assignment_data_type = list()
+
+        #   when there is direct attribution of value and one assignment on line
+        if isinstance(statement_value, ast.Constant):
+            assignment_data_type.append(
+                f"{type(statement_value.value).__name__}")
+
+        #   when there is more than one assignment on the same line
+        elif isinstance(statement_value, ast.Tuple):
+            for elt in statement_value.elts:
+                #   when there is direct attribution of value
+                if isinstance(elt, ast.Constant):
+                    assignment_data_type += [f"{type(elt.value).__name__}"]
+
+                #   when you have initialization of a class
+                if isinstance(elt, ast.Call):
+                    # TODO
+                    assignment_data_type.append("None")
+                    pass
+
+        #   when it is not possible to identify, and it is necessary to analyze context
+        else:
+            assignment_data_type.append("None")
+
+        return assignment_data_type
 
     @staticmethod
     def _get_init_assignment(node_body):
@@ -166,4 +251,5 @@ class AST_handler:
         for statement in node_body:
             if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)) and statement.name == "__init__":
                 return AST_handler.get_assignments(statement.body)
+
         return list()
