@@ -1,11 +1,11 @@
 [
     {
-        "class_name": "Produto",
+        "class_name": "Pessoa",
         "inheritance": [],
         "attributes": [
             {
-                "name": "codigo",
-                "data_type": "None",
+                "name": "sobrenome",
+                "data_type": "str",
                 "encapsulation": "Public"
             },
             {
@@ -14,42 +14,7 @@
                 "encapsulation": "Public"
             },
             {
-                "name": "preco",
-                "data_type": "None",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self",
-                    "codigo",
-                    "nome",
-                    "preco"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "exibir_informacoes",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Cliente",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "nome",
-                "data_type": "None",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "email",
+                "name": "idade",
                 "data_type": "None",
                 "encapsulation": "Public"
             }
@@ -60,12 +25,12 @@
                 "args": [
                     "self",
                     "nome",
-                    "email"
+                    "idade"
                 ],
                 "return_value": null
             },
             {
-                "name": "exibir_dados",
+                "name": "apresentar",
                 "args": [
                     "self"
                 ],
@@ -74,17 +39,17 @@
         ]
     },
     {
-        "class_name": "Pedido",
+        "class_name": "Ser_Vivo",
         "inheritance": [],
         "attributes": [
             {
-                "name": "cliente",
-                "data_type": "None",
+                "name": "exemplo",
+                "data_type": "str",
                 "encapsulation": "Public"
             },
             {
-                "name": "produtos",
-                "data_type": "None",
+                "name": "vivo",
+                "data_type": "bool",
                 "encapsulation": "Public"
             }
         ],
@@ -92,28 +57,66 @@
             {
                 "name": "__init__",
                 "args": [
-                    "self",
-                    "cliente"
+                    "self"
                 ],
                 "return_value": null
-            },
+            }
+        ]
+    },
+    {
+        "class_name": "Animal",
+        "inheritance": [
+            "Ser_Vivo"
+        ],
+        "attributes": [],
+        "methods": [
             {
-                "name": "adicionar_produto",
+                "name": "Barulho",
                 "args": [
-                    "self",
-                    "produto"
+                    "self"
                 ],
                 "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Humano",
+        "inheritance": [
+            "Ser_Vivo",
+            "Pessoa"
+        ],
+        "attributes": [
+            {
+                "name": "animal",
+                "data_type": "None",
+                "encapsulation": "Public"
             },
             {
-                "name": "calcular_total",
+                "name": "animal2",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "sla",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "kaka",
+                "data_type": "str",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
                 "args": [
                     "self"
                 ],
                 "return_value": null
             },
             {
-                "name": "exibir_pedido",
+                "name": "Barulho",
                 "args": [
                     "self"
                 ],
