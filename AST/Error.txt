@@ -1,0 +1,109 @@
+('Module(body=[Expr(value=Constant(value="Exception classes raised by '
+ 'urllib.\\n\\nThe base exception class is URLError, which inherits from '
+ "OSError.  It\\ndoesn't define any behavior of its own, but is the base class "
+ 'for all\\nexceptions defined in this package.\\n\\nHTTPError is an exception '
+ 'class that is also a valid HTTP response\\ninstance.  It behaves this way '
+ 'because HTTP protocol errors are valid\\nresponses, with a status code, '
+ 'headers, and a body.  In some contexts,\\nan application may want to handle '
+ 'an exception like a regular\\nresponse.\\n")), '
+ "Import(names=[alias(name='urllib.response')]), "
+ "Assign(targets=[Name(id='__all__', ctx=Store())], "
+ "value=List(elts=[Constant(value='URLError'), Constant(value='HTTPError'), "
+ "Constant(value='ContentTooShortError')], ctx=Load())), "
+ "ClassDef(name='URLError', bases=[Name(id='OSError', ctx=Load())], "
+ "keywords=[], body=[FunctionDef(name='__init__', "
+ "args=arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='reason'), "
+ "arg(arg='filename')], kwonlyargs=[], kw_defaults=[], "
+ 'defaults=[Constant(value=None)]), '
+ "body=[Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='args', ctx=Store())], value=Tuple(elts=[Name(id='reason', "
+ "ctx=Load())], ctx=Load())), Assign(targets=[Attribute(value=Name(id='self', "
+ "ctx=Load()), attr='reason', ctx=Store())], value=Name(id='reason', "
+ "ctx=Load())), If(test=Compare(left=Name(id='filename', ctx=Load()), "
+ 'ops=[IsNot()], comparators=[Constant(value=None)]), '
+ "body=[Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='filename', ctx=Store())], value=Name(id='filename', ctx=Load()))], "
+ "orelse=[])], decorator_list=[]), FunctionDef(name='__str__', "
+ "args=arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], "
+ 'kw_defaults=[], defaults=[]), '
+ "body=[Return(value=BinOp(left=Constant(value='<urlopen error %s>'), "
+ "op=Mod(), right=Attribute(value=Name(id='self', ctx=Load()), attr='reason', "
+ 'ctx=Load())))], decorator_list=[])], decorator_list=[]), '
+ "ClassDef(name='HTTPError', bases=[Name(id='URLError', ctx=Load()), "
+ "Attribute(value=Attribute(value=Name(id='urllib', ctx=Load()), "
+ "attr='response', ctx=Load()), attr='addinfourl', ctx=Load())], keywords=[], "
+ "body=[Expr(value=Constant(value='Raised when HTTP error occurs, but also "
+ "acts like non-error return')), Assign(targets=[Name(id='__super_init', "
+ 'ctx=Store())], '
+ "value=Attribute(value=Attribute(value=Attribute(value=Name(id='urllib', "
+ "ctx=Load()), attr='response', ctx=Load()), attr='addinfourl', ctx=Load()), "
+ "attr='__init__', ctx=Load())), FunctionDef(name='__init__', "
+ "args=arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='url'), "
+ "arg(arg='code'), arg(arg='msg'), arg(arg='hdrs'), arg(arg='fp')], "
+ 'kwonlyargs=[], kw_defaults=[], defaults=[]), '
+ "body=[Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='code', ctx=Store())], value=Name(id='code', ctx=Load())), "
+ "Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='msg', "
+ "ctx=Store())], value=Name(id='msg', ctx=Load())), "
+ "Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='hdrs', "
+ "ctx=Store())], value=Name(id='hdrs', ctx=Load())), "
+ "Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='fp', "
+ "ctx=Store())], value=Name(id='fp', ctx=Load())), "
+ "Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='filename', ctx=Store())], value=Name(id='url', ctx=Load())), "
+ "If(test=Compare(left=Name(id='fp', ctx=Load()), ops=[IsNot()], "
+ 'comparators=[Constant(value=None)]), '
+ "body=[Expr(value=Call(func=Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='__super_init', ctx=Load()), args=[Name(id='fp', ctx=Load()), "
+ "Name(id='hdrs', ctx=Load()), Name(id='url', ctx=Load()), Name(id='code', "
+ 'ctx=Load())], keywords=[]))], orelse=[])], decorator_list=[]), '
+ "FunctionDef(name='__str__', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[]), "
+ "body=[Return(value=BinOp(left=Constant(value='HTTP Error %s: %s'), op=Mod(), "
+ "right=Tuple(elts=[Attribute(value=Name(id='self', ctx=Load()), attr='code', "
+ "ctx=Load()), Attribute(value=Name(id='self', ctx=Load()), attr='msg', "
+ 'ctx=Load())], ctx=Load())))], decorator_list=[]), '
+ "FunctionDef(name='__repr__', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[]), "
+ "body=[Return(value=BinOp(left=Constant(value='<HTTPError %s: %r>'), "
+ "op=Mod(), right=Tuple(elts=[Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='code', ctx=Load()), Attribute(value=Name(id='self', ctx=Load()), "
+ "attr='msg', ctx=Load())], ctx=Load())))], decorator_list=[]), "
+ "FunctionDef(name='reason', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[]), "
+ "body=[Return(value=Attribute(value=Name(id='self', ctx=Load()), attr='msg', "
+ "ctx=Load()))], decorator_list=[Name(id='property', ctx=Load())]), "
+ "FunctionDef(name='headers', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[]), "
+ "body=[Return(value=Attribute(value=Name(id='self', ctx=Load()), attr='hdrs', "
+ "ctx=Load()))], decorator_list=[Name(id='property', ctx=Load())]), "
+ "FunctionDef(name='headers', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self'), arg(arg='headers')], kwonlyargs=[], kw_defaults=[], "
+ "defaults=[]), body=[Assign(targets=[Attribute(value=Name(id='self', "
+ "ctx=Load()), attr='hdrs', ctx=Store())], value=Name(id='headers', "
+ "ctx=Load()))], decorator_list=[Attribute(value=Name(id='headers', "
+ "ctx=Load()), attr='setter', ctx=Load())])], decorator_list=[]), "
+ "ClassDef(name='ContentTooShortError', bases=[Name(id='URLError', "
+ "ctx=Load())], keywords=[], body=[Expr(value=Constant(value='Exception raised "
+ "when downloaded size does not match content-length.')), "
+ "FunctionDef(name='__init__', args=arguments(posonlyargs=[], "
+ "args=[arg(arg='self'), arg(arg='message'), arg(arg='content')], "
+ 'kwonlyargs=[], kw_defaults=[], defaults=[]), '
+ "body=[Expr(value=Call(func=Attribute(value=Name(id='URLError', ctx=Load()), "
+ "attr='__init__', ctx=Load()), args=[Name(id='self', ctx=Load()), "
+ "Name(id='message', ctx=Load())], keywords=[])), "
+ "Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='content', "
+ "ctx=Store())], value=Name(id='content', ctx=Load()))], decorator_list=[])], "
+ 'decorator_list=[])], type_ignores=[])')
+Traceback (most recent call last):
+  File "c:\Users\aluno\Desktop\python-structure-generator\dir_explorer.py", line 95, in <module>
+    classes += AST_handler.get_classes(tree.body)
+  File "c:\Users\aluno\Desktop\python-structure-generator\AST\AST_handler.py", line 70, in get_classes
+    for assignment in AST_handler._get_init_assignment(node.body):
+  File "c:\Users\aluno\Desktop\python-structure-generator\AST\AST_handler.py", line 253, in _get_init_assignment
+    return AST_handler.get_assignments(statement.body)
+  File "c:\Users\aluno\Desktop\python-structure-generator\AST\AST_handler.py", line 128, in get_assignments
+    for assignment in AST_handler._get_assignment(statement):
+  File "c:\Users\aluno\Desktop\python-structure-generator\AST\AST_handler.py", line 155, in _get_assignment
+    return [assignments_info(name=assignment_names[0], data_type=assignment_data_type[0], encapsulation=assignment_encapsulation[0])]
+IndexError: list index out of range

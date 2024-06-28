@@ -1,162 +1,47 @@
 [
     {
-        "class_name": "AST_handler",
-        "inheritance": [],
-        "attributes": [],
-        "methods": [
-            {
-                "name": "get_AST",
-                "args": [
-                    "file_path"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "print_tree",
-                "args": [
-                    "AST_tree"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "get_classes",
-                "args": [
-                    "tree_body"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "get_functions",
-                "args": [
-                    "node_body"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_function",
-                "args": [
-                    "statement"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "get_assignments",
-                "args": [
-                    "node_body"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_assignment",
-                "args": [
-                    "statement"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_assignment_names",
-                "args": [
-                    "statement_targets"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_assignment_encapsulation",
-                "args": [
-                    "assignment_names"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_assignment_data_type",
-                "args": [
-                    "statement_value"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "_get_init_assignment",
-                "args": [
-                    "node_body"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "assignments_info",
-        "inheritance": [],
-        "attributes": [],
-        "methods": []
-    },
-    {
-        "class_name": "class_info",
+        "class_name": "JSONDecodeError",
         "inheritance": [
-            "JSON_serializable"
+            "ValueError"
         ],
-        "attributes": [],
-        "methods": [
-            {
-                "name": "to_dict",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "function_info",
-        "inheritance": [],
-        "attributes": [],
-        "methods": []
-    },
-    {
-        "class_name": "dir_explorer",
-        "inheritance": [],
-        "attributes": [],
-        "methods": [
-            {
-                "name": "get_files_from_dir",
-                "args": [
-                    "directory",
-                    "ignore_patterns"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "get_files_with_extension",
-                "args": [
-                    "directory",
-                    "extension"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "get_ignore_patterns",
-                "args": [
-                    "gitignore_path"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Produto",
-        "inheritance": [],
         "attributes": [
             {
-                "name": "codigo",
+                "name": "lineno",
                 "data_type": "None",
                 "encapsulation": "Public"
             },
             {
-                "name": "nome",
+                "name": "colno",
                 "data_type": "None",
                 "encapsulation": "Public"
             },
             {
-                "name": "preco",
+                "name": "errmsg",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "msg",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "doc",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "pos",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "lineno",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "colno",
                 "data_type": "None",
                 "encapsulation": "Public"
             }
@@ -166,14 +51,14 @@
                 "name": "__init__",
                 "args": [
                     "self",
-                    "codigo",
-                    "nome",
-                    "preco"
+                    "msg",
+                    "doc",
+                    "pos"
                 ],
                 "return_value": null
             },
             {
-                "name": "exibir_informacoes",
+                "name": "__reduce__",
                 "args": [
                     "self"
                 ],
@@ -182,192 +67,64 @@
         ]
     },
     {
-        "class_name": "Cliente",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "nome",
-                "data_type": "None",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "email",
-                "data_type": "None",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self",
-                    "nome",
-                    "email"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "exibir_dados",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Pedido",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "cliente",
-                "data_type": "None",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "produtos",
-                "data_type": "None",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self",
-                    "cliente"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "adicionar_produto",
-                "args": [
-                    "self",
-                    "produto"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "calcular_total",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "exibir_pedido",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Pessoa",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "sobrenome",
-                "data_type": "str",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "nome",
-                "data_type": "None",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "idade",
-                "data_type": "None",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self",
-                    "nome",
-                    "idade"
-                ],
-                "return_value": null
-            },
-            {
-                "name": "apresentar",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Ser_Vivo",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "exemplo",
-                "data_type": "str",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "vivo",
-                "data_type": "bool",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Animal",
+        "class_name": "JSONDecoder",
         "inheritance": [
-            "Ser_Vivo"
-        ],
-        "attributes": [],
-        "methods": [
-            {
-                "name": "Barulho",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Humano",
-        "inheritance": [
-            "Ser_Vivo",
-            "Pessoa"
+            "object"
         ],
         "attributes": [
             {
-                "name": "animal",
+                "name": "object_hook",
                 "data_type": "None",
                 "encapsulation": "Public"
             },
             {
-                "name": "animal2",
+                "name": "parse_float",
                 "data_type": "None",
                 "encapsulation": "Public"
             },
             {
-                "name": "sla",
-                "data_type": "str",
+                "name": "parse_int",
+                "data_type": "None",
                 "encapsulation": "Public"
             },
             {
-                "name": "kaka",
-                "data_type": "str",
+                "name": "parse_constant",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "strict",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "object_pairs_hook",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "parse_object",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "parse_array",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "parse_string",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "memo",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "scan_once",
+                "data_type": "None",
                 "encapsulation": "Public"
             }
         ],
@@ -380,80 +137,102 @@
                 "return_value": null
             },
             {
-                "name": "Barulho",
-                "args": [
-                    "self"
-                ],
-                "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "Produto",
-        "inheritance": [],
-        "attributes": [
-            {
-                "name": "codigo",
-                "data_type": "None",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "nome",
-                "data_type": "str",
-                "encapsulation": "Public"
-            },
-            {
-                "name": "preco",
-                "data_type": "int",
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
+                "name": "decode",
                 "args": [
                     "self",
-                    "codigo",
-                    "nome",
-                    "preco"
+                    "s",
+                    "_w"
                 ],
                 "return_value": null
             },
             {
-                "name": "exibir_informacoes",
+                "name": "raw_decode",
                 "args": [
-                    "self"
+                    "self",
+                    "s",
+                    "idx"
                 ],
                 "return_value": null
             }
         ]
     },
     {
-        "class_name": "JSON_serializable",
+        "class_name": "JSONEncoder",
         "inheritance": [
-            "ABC"
+            "object"
         ],
-        "attributes": [],
+        "attributes": [
+            {
+                "name": "item_separator",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "key_separator",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "skipkeys",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "ensure_ascii",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "check_circular",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "allow_nan",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "sort_keys",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "indent",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
         "methods": [
             {
-                "name": "to_dict",
+                "name": "__init__",
                 "args": [
                     "self"
                 ],
                 "return_value": null
-            }
-        ]
-    },
-    {
-        "class_name": "JSON_serializer",
-        "inheritance": [],
-        "attributes": [],
-        "methods": [
+            },
             {
-                "name": "save_to_json",
+                "name": "default",
                 "args": [
-                    "filename",
-                    "data"
+                    "self",
+                    "o"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "encode",
+                "args": [
+                    "self",
+                    "o"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "iterencode",
+                "args": [
+                    "self",
+                    "o",
+                    "_one_shot"
                 ],
                 "return_value": null
             }

@@ -89,9 +89,11 @@ if __name__ == "__main__":
     
     classes = list()
     for file in dir_explorer.get_files_with_extension(
-        "C:\\Users\\aluno\\Desktop\\python-structure-generator", ".py"):
+        "C:\\Users\\aluno\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\urllib", ".py"):
         tree = AST_handler.get_AST(file)
+        AST_handler.print_tree(tree)
         classes += AST_handler.get_classes(tree.body)
+
 
     dict_classes = list()
     for current_class in classes:
