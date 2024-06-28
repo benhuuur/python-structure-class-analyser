@@ -2,6 +2,9 @@ from os import listdir, walk
 from os.path import isfile, join, isdir
 import re
 
+from AST.AST_handler import AST_handler
+from JSON.JSON_serializer import JSON_serializer
+
 
 class dir_explorer:
     @staticmethod
@@ -24,16 +27,29 @@ class dir_explorer:
         for item in listdir(directory):
             item_path = join(directory, item)
 
+            # Check if the file matches any ignore pattern
+            if (any(pattern in item_path for pattern in ignore_patterns) and len(patterns) > 0):
+                # Ignore this file if it matches any pattern
+                continue
+
             if isdir(item_path):
                 files += dir_explorer.get_files_from_dir(
                     item_path, ignore_patterns)
-            elif isfile(item_path):
-                # Check if the file matches any ignore pattern
-                if any(re.match(pattern, item) for pattern in ignore_patterns):
-                    continue  # Ignore this file if it matches any pattern
 
+            elif isfile(item_path):
                 files.append(item_path)
 
+        return files
+    
+    def get_files_with_extension(directory, extension):
+        files = []
+        for item in listdir(directory):
+            item_path = join(directory, item)
+            if isdir(item_path):
+                files += dir_explorer.get_files_with_extension(
+                    item_path, extension)
+            elif item.endswith(extension):
+                files.append(item_path)
         return files
 
     def get_ignore_patterns(gitignore_path):
@@ -69,5 +85,16 @@ if __name__ == "__main__":
     patterns = dir_explorer.get_ignore_patterns(".gitignore")
     patterns.append(".gitignore")
     patterns.append(".git")
-    print(dir_explorer.get_files_from_dir("C:\\Users\\aluno\\Desktop\\python-structure-generator",
-          ))
+    patterns.append("README.md")
+    
+    classes = list()
+    for file in dir_explorer.get_files_with_extension(
+        "C:\\Users\\aluno\\Desktop\\python-structure-generator", ".py"):
+        tree = AST_handler.get_AST(file)
+        classes += AST_handler.get_classes(tree.body)
+
+    dict_classes = list()
+    for current_class in classes:
+        dict_classes.append(current_class.to_dict())
+    
+    JSON_serializer.save_to_json(data=dict_classes, filename="class.json")
