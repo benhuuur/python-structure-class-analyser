@@ -1,0 +1,462 @@
+[
+    {
+        "class_name": "AST_handler",
+        "inheritance": [],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "get_AST",
+                "args": [
+                    "file_path"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "print_tree",
+                "args": [
+                    "AST_tree"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "get_classes",
+                "args": [
+                    "tree_body"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "get_functions",
+                "args": [
+                    "node_body"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_function",
+                "args": [
+                    "statement"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "get_assignments",
+                "args": [
+                    "node_body"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_assignment",
+                "args": [
+                    "statement"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_assignment_names",
+                "args": [
+                    "statement_targets"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_assignment_encapsulation",
+                "args": [
+                    "assignment_names"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_assignment_data_type",
+                "args": [
+                    "statement_value"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "_get_init_assignment",
+                "args": [
+                    "node_body"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "assignments_info",
+        "inheritance": [],
+        "attributes": [],
+        "methods": []
+    },
+    {
+        "class_name": "class_info",
+        "inheritance": [
+            "JSON_serializable"
+        ],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "to_dict",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "function_info",
+        "inheritance": [],
+        "attributes": [],
+        "methods": []
+    },
+    {
+        "class_name": "dir_explorer",
+        "inheritance": [],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "get_files_from_dir",
+                "args": [
+                    "directory",
+                    "ignore_patterns"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "get_files_with_extension",
+                "args": [
+                    "directory",
+                    "extension"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "get_ignore_patterns",
+                "args": [
+                    "gitignore_path"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Produto",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "codigo",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "nome",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "preco",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "codigo",
+                    "nome",
+                    "preco"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_informacoes",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Cliente",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "nome",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "email",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "nome",
+                    "email"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_dados",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Pedido",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "cliente",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "produtos",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "cliente"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "adicionar_produto",
+                "args": [
+                    "self",
+                    "produto"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "calcular_total",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_pedido",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Pessoa",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "sobrenome",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "nome",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "idade",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "nome",
+                    "idade"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "apresentar",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Ser_Vivo",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "exemplo",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "vivo",
+                "data_type": "bool",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Animal",
+        "inheritance": [
+            "Ser_Vivo"
+        ],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "Barulho",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Humano",
+        "inheritance": [
+            "Ser_Vivo",
+            "Pessoa"
+        ],
+        "attributes": [
+            {
+                "name": "animal",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "animal2",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "sla",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "kaka",
+                "data_type": "str",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "Barulho",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Produto",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "codigo",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "nome",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "preco",
+                "data_type": "int",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "codigo",
+                    "nome",
+                    "preco"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "exibir_informacoes",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "JSON_serializable",
+        "inheritance": [
+            "ABC"
+        ],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "to_dict",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "JSON_serializer",
+        "inheritance": [],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "save_to_json",
+                "args": [
+                    "filename",
+                    "data"
+                ],
+                "return_value": null
+            }
+        ]
+    }
+]
