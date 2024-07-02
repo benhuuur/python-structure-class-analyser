@@ -2,7 +2,8 @@ class Pessoa:
     sobrenome = ""
 
     def __init__(self, nome, idade):
-        self.nome = nome
+        nome_completo = "sla " + nome
+        self.nome = nome_completo
         self.idade = idade
 
     def apresentar(self):
