@@ -4,6 +4,7 @@ from pprint import pprint
 from data_class.assignments_info import assignments_info
 from data_class.class_info import class_info
 from data_class.function_info import function_info
+from encoder import get_encode
 
 
 class AST_handler:
@@ -24,7 +25,7 @@ class AST_handler:
         - OSError: If there is a general operating system error while accessing `file_path`.
         """
         try:
-            with open(file_path, "r") as file:
+            with open(file_path, "r", encoding=get_encode(file_path)) as file:
                 return ast.parse(file.read())
         except FileNotFoundError:
             print(f"Error: File '{file_path}' not found.")
@@ -44,7 +45,6 @@ class AST_handler:
         Args:
         - AST_tree (ast.AST): Abstract syntax tree representation of the Python code.
         """
-        print("\n")
         pprint(ast.dump(AST_tree))
 
     @staticmethod
@@ -61,7 +61,7 @@ class AST_handler:
         classes = list()
         for node in tree_body:
             if isinstance(node, ast.ClassDef):
-                bases = [base.id for base in node.bases]
+                bases = AST_handler._get_bases(node)
 
                 functions = AST_handler.get_functions(node.body)
 
@@ -141,13 +141,20 @@ class AST_handler:
         Returns:
         - list: List of assignments_info objects representing each assignment target found in the statement.
         """
+        
+        print("_get_assignment: ")
+        AST_handler.print_tree(statement)
         assignment_names = AST_handler._get_assignment_names(statement.targets)
 
         assignment_encapsulation = AST_handler._get_assignment_encapsulation(
             assignment_names)
 
         assignment_data_type = AST_handler._get_assignment_data_type(
-            statement.value)
+            statement.value, len(assignment_names))
+
+        # print("assignment_names", len(assignment_names))
+        # print("assignment_data_type", len(assignment_data_type))
+        # print("assignment_encapsulation", len(assignment_encapsulation))
 
         if (len(assignment_names) > 1):
             return [assignments_info(name=assignment_names[i], data_type=assignment_data_type[i], encapsulation=assignment_encapsulation[i]) for i in range(len(assignment_names))]
@@ -175,9 +182,12 @@ class AST_handler:
             #   when there is more than one assignment on the same line
             elif isinstance(target, ast.Tuple):
                 #   when there is direct attribution
-                assignment_names += [name.id for name in target.elts if isinstance(
-                    name, ast.Name)]
-    
+                for elt in target.elts:
+                    if isinstance(elt, ast.Name):
+                        assignment_names.append(elt.id)
+                    elif isinstance(elt, ast.Attribute):
+                        assignment_names.append(elt.attr)
+
             #   when there is a attribute assignment
             elif isinstance(target, ast.Attribute):
                 assignment_names.append(target.attr)
@@ -200,7 +210,7 @@ class AST_handler:
             '_') else f"Public" for name in assignment_names]
 
     @staticmethod
-    def _get_assignment_data_type(statement_value):
+    def _get_assignment_data_type(statement_value, assignment_inline=1):
         """
         Extracts assignment data type information from an AST node representing a statement value.
 
@@ -213,27 +223,39 @@ class AST_handler:
         """
         assignment_data_type = list()
 
-        #   when there is direct attribution of value and one assignment on line
-        if isinstance(statement_value, ast.Constant):
-            assignment_data_type.append(
-                f"{type(statement_value.value).__name__}")
+        # AST_handler.print_tree(statement_value)
 
-        #   when there is more than one assignment on the same line
-        elif isinstance(statement_value, ast.Tuple):
-            for elt in statement_value.elts:
-                #   when there is direct attribution of value
-                if isinstance(elt, ast.Constant):
-                    assignment_data_type += [f"{type(elt.value).__name__}"]
+        while len(assignment_data_type) < assignment_inline:
+            # print(len(assignment_data_type))
+            #   when there is direct attribution of value and one assignment on line
+            if isinstance(statement_value, ast.Constant) and statement_value.value is not None:
+                assignment_data_type.append(
+                    f"{type(statement_value.value).__name__}")
 
-                #   when you have initialization of a class
-                if isinstance(elt, ast.Call):
-                    # TODO
+            #   when there is more than one assignment on the same line
+            elif isinstance(statement_value, ast.Tuple):
+                if len(statement_value.elts) == 0:
                     assignment_data_type.append("None")
-                    pass
+                for elt in statement_value.elts:
+                    #   when there is direct attribution of value
+                    if isinstance(elt, ast.Constant) and elt.value is not None:
+                        assignment_data_type += [f"{type(elt.value).__name__}"]
 
-        #   when it is not possible to identify, and it is necessary to analyze context
-        else:
-            assignment_data_type.append("None")
+                    #   when you have initialization of a class
+                    if isinstance(elt, ast.Call):
+                        # TODO
+                        assignment_data_type.append("None")
+                        pass
+                    else:
+                        print(f"Type is not handle:  {type(elt)}")
+                        AST_handler.print_tree(elt)
+                        assignment_data_type.append("None")
+
+            #   when it is not possible to identify, and it is necessary to analyze context
+            else:
+                print(f"Type is not handle:  {type(statement_value)}")
+                AST_handler.print_tree(statement_value)
+                assignment_data_type.append("None")
 
         return assignment_data_type
 
@@ -253,3 +275,21 @@ class AST_handler:
                 return AST_handler.get_assignments(statement.body)
 
         return list()
+
+    @staticmethod
+    def _handle_attribute(attribute: ast.Attribute):
+        if isinstance(attribute.value, ast.Name):
+            return attribute.value.id + "." + attribute.attr
+        elif isinstance(attribute.value, ast.Attribute):
+            return AST_handler._handle_attribute(attribute.value) + "." + attribute.attr
+
+    @staticmethod
+    def _get_bases(node):
+        bases = list()
+        for base in node.bases:
+            if isinstance(base, ast.Name):
+                bases.append(base.id)
+            elif isinstance(base, ast.Attribute):
+                bases.append(AST_handler._handle_attribute(base))
+
+        return bases
