@@ -89,9 +89,11 @@ if __name__ == "__main__":
     
     classes = list()
     for file in dir_explorer.get_files_with_extension(
-        "C:\\Users\\aluno\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\urllib", ".py"):
+        # "C:\\Users\\aluno\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\urllib", ".py"):
+        "c:\\Users\\aluno\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\PIL", ".py"):
+        print(file)
         tree = AST_handler.get_AST(file)
-        AST_handler.print_tree(tree)
+        # AST_handler.print_tree(tree)
         classes += AST_handler.get_classes(tree.body)
 
 
