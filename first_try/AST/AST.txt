@@ -1,0 +1,271 @@
+Module(
+    body=[
+        ClassDef(
+            name='Pessoa',
+            bases=[],
+            keywords=[],
+            body=[
+                Assign(
+                    targets=[Name(id='sobrenome', ctx=Store())],
+                    value=Constant(value='')
+                ),
+                FunctionDef(
+                    name='__init__',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self'),
+                            arg(arg='nome'),
+                            arg(arg='idade')
+                        ],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='nome', ctx=Store())],
+                            value=Name(id='nome', ctx=Load())
+                        ),
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='idade', ctx=Store())],
+                            value=Name(id='idade', ctx=Load())
+                        )
+                    ],
+                    decorator_list=[]
+                ),
+                FunctionDef(
+                    name='apresentar',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Expr(
+                            value=Call(
+                                func=Name(id='print', ctx=Load()),
+                                args=[
+                                    JoinedStr(
+                                        values=[
+                                            Constant(value='Olá, eu sou '),
+                                            FormattedValue(
+                                                value=Attribute(value=Name(id='self', ctx=Load()), attr='nome', ctx=Load()),
+                                                conversion=-1
+                                            ),
+                                            Constant(value=' e tenho '),
+                                            FormattedValue(
+                                                value=Attribute(value=Name(id='self', ctx=Load()), attr='idade', ctx=Load()),
+                                                conversion=-1
+                                            ),
+                                            Constant(value=' anos.')
+                                        ]
+                                    )
+                                ],
+                                keywords=[]
+                            )
+                        )
+                    ],
+                    decorator_list=[]
+                )
+            ],
+            decorator_list=[]
+        ),
+        Assign(
+            targets=[Name(id='pessoa1', ctx=Store())],
+            value=Call(
+                func=Name(id='Pessoa', ctx=Load()),
+                args=[
+                    Constant(value='João'),
+                    Constant(value=30)
+                ],
+                keywords=[]
+            )
+        ),
+        ClassDef(
+            name='Ser_Vivo',
+            bases=[],
+            keywords=[],
+            body=[
+                FunctionDef(
+                    name='__init__',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='exemplo', ctx=Store())],
+                            value=Constant(value='')
+                        ),
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='vivo', ctx=Store())],
+                            value=Constant(value=True)
+                        )
+                    ],
+                    decorator_list=[]
+                )
+            ],
+            decorator_list=[]
+        ),
+        ClassDef(
+            name='Animal',
+            bases=[Name(id='Ser_Vivo', ctx=Load())],
+            keywords=[],
+            body=[
+                FunctionDef(
+                    name='Barulho',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='exemplo', ctx=Store())],
+                            value=Constant(value='la')
+                        ),
+                        Expr(
+                            value=Call(
+                                func=Name(id='print', ctx=Load()),
+                                args=[Constant(value='sjalkjaksdj')],
+                                keywords=[]
+                            )
+                        )
+                    ],
+                    decorator_list=[]
+                )
+            ],
+            decorator_list=[]
+        ),
+        ClassDef(
+            name='Humano',
+            bases=[
+                Name(id='Ser_Vivo', ctx=Load()),
+                Name(id='Pessoa', ctx=Load())
+            ],
+            keywords=[],
+            body=[
+                Assign(
+                    targets=[Tuple(elts=[Name(id='animal', ctx=Store()), Name(id='animal2', ctx=Store())], ctx=Store())],
+                    value=Tuple(
+                        elts=[
+                            Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[]),
+                            Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
+                        ],
+                        ctx=Load()
+                    )
+                ),
+                Assign(
+                    targets=[Name(id='sla', ctx=Store())],
+                    value=Constant(value='junin')
+                ),
+                FunctionDef(
+                    name='__init__',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Expr(
+                            value=Call(
+                                func=Attribute(
+                                    value=Call(
+                                        func=Name(id='super', ctx=Load()),
+                                        args=[],
+                                        keywords=[]
+                                    ),
+                                    attr='__init__',
+                                    ctx=Load()
+                                ),
+                                args=[],
+                                keywords=[]
+                            )
+                        ),
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='kaka', ctx=Store())],
+                            value=Constant(value='blessed')
+                        )
+                    ],
+                    decorator_list=[]
+                ),
+                FunctionDef(
+                    name='Barulho',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Expr(
+                            value=Call(
+                                func=Name(id='print', ctx=Load()),
+                                args=[Constant(value='sjalkjaksdj')],
+                                keywords=[]
+                            )
+                        )
+                    ],
+                    decorator_list=[]
+                )
+            ],
+            decorator_list=[]
+        ),
+        Assign(
+            targets=[Name(id='pessoa2', ctx=Store())],
+            value=Call(
+                func=Name(id='Pessoa', ctx=Load()),
+                args=[
+                    Constant(value='Maria'),
+                    Constant(value=25)
+                ],
+                keywords=[]
+            )
+        ),
+        Assign(
+            targets=[Name(id='class_name', ctx=Store())],
+            value=Constant(value='ll')
+        ),
+        Assign(
+            targets=[Name(id='animal', ctx=Store())],
+            value=Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
+        ),
+        Expr(
+            value=Call(
+                func=Attribute(value=Name(id='animal', ctx=Load()), attr='Barulho', ctx=Load()),
+                args=[],
+                keywords=[]
+            )
+        ),
+        Expr(
+            value=Call(
+                func=Name(id='print', ctx=Load()),
+                args=[Attribute(value=Name(id='animal', ctx=Load()), attr='exemplo', ctx=Load())],
+                keywords=[]
+            )
+        ),
+        Assign(
+            targets=[Name(id='animal2', ctx=Store())],
+            value=Call(func=Name(id='Animal', ctx=Load()), args=[], keywords=[])
+        ),
+        Expr(
+            value=Call(
+                func=Name(id='print', ctx=Load()),
+                args=[Attribute(value=Name(id='animal2', ctx=Load()), attr='exemplo', ctx=Load())],
+                keywords=[]
+            )
+        )
+    ],
+    type_ignores=[]
+)

@@ -1,0 +1,80 @@
+[
+    {
+        "class_name": "ContainerIO",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "pos",
+                "data_type": "int",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "offset",
+                "data_type": "None",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "length",
+                "data_type": "None",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "file",
+                    "offset",
+                    "length"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "isatty",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "seek",
+                "args": [
+                    "self",
+                    "offset",
+                    "mode"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "tell",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "read",
+                "args": [
+                    "self",
+                    "n"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "readline",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "readlines",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    }
+]
