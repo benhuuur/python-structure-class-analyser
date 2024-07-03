@@ -101,4 +101,4 @@ if __name__ == "__main__":
     for current_class in classes:
         dict_classes.append(current_class.to_dict())
     
-    JSON_serializer.save_to_json(data=dict_classes, filename="class.json")
+    JSON_serializer.save_to_json(data=dict_classes, filename="first_try/class.json")
