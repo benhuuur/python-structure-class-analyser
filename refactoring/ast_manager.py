@@ -1,6 +1,7 @@
 import ast
 from encoder import detect_encode
-from visitor import ClassVisitor, visitor
+
+from ast_visitor import ClassVisitor, visitor, print_node
 
 
 def AST_from_file(file_path):
@@ -39,20 +40,13 @@ def class_nodes(tree):
 
 
 if __name__ == "__main__":
-    code = """
-class MyClass:
-    def __init__(self):
-        pass
-
-class AnotherClass:
-    def __init__(self):
-        pass
-    """
-
-    tree = ast.parse(code)
-    classes =  class_nodes(tree)
-
+    tree = AST_from_file(
+        "refactoring\\Test.py")
+    classes = class_nodes(tree)
+    print_node(tree)
+    classes_data = list()
     my_visitor = visitor()
     for node_class in classes:
-        my_visitor.visit(node_class)
+        classes_data.append(my_visitor.visit(node_class))
 
+    print(classes_data)
