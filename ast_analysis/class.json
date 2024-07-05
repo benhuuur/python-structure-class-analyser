@@ -1,0 +1,460 @@
+[
+    {
+        "class_name": "ClassVisitor",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "classes",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "_instance",
+                "data_type": "NoneType",
+                "encapsulation": "Private"
+            },
+            {
+                "name": "current_class",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "current_function",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "methods",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "attributes",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "inheritance",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_ClassDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "__new__",
+                "args": [
+                    "cls"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_ClassDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_FunctionDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_AsyncFunctionDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_AnnAssign",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Assign",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Attribute",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Name",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Constant",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "Visitor",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "classes",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "_instance",
+                "data_type": "NoneType",
+                "encapsulation": "Private"
+            },
+            {
+                "name": "current_class",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "current_function",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "methods",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "attributes",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "inheritance",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_ClassDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "__new__",
+                "args": [
+                    "cls"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_ClassDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_FunctionDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_AsyncFunctionDef",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_AnnAssign",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Assign",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Attribute",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Name",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "visit_Constant",
+                "args": [
+                    "self",
+                    "node"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "AttributeInfo",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "name",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "data_type",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "encapsulation",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": []
+    },
+    {
+        "class_name": "ClassInfo",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "name",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "inheritance",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "attributes",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "methods",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "to_dict",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "FunctionInfo",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "name",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "args",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "return_value",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": []
+    },
+    {
+        "class_name": "JsonSerializable",
+        "inheritance": [],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "to_dict",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    },
+    {
+        "class_name": "ContainerIO",
+        "inheritance": [],
+        "attributes": [
+            {
+                "name": "xuxu",
+                "data_type": "str",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "xuxu2",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "fh",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "pos",
+                "data_type": "int",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "offset",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            },
+            {
+                "name": "length",
+                "data_type": "Any",
+                "encapsulation": "Public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "file",
+                    "offset",
+                    "length"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "isatty",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "seek",
+                "args": [
+                    "self",
+                    "offset",
+                    "mode"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "tell",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "read",
+                "args": [
+                    "self",
+                    "n"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "readline",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            },
+            {
+                "name": "readlines",
+                "args": [
+                    "self"
+                ],
+                "return_value": null
+            }
+        ]
+    }
+]

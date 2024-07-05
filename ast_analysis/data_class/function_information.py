@@ -3,7 +3,7 @@ from typing import Any, List
 
 
 @dataclass
-class function_info():
+class FunctionInformation:
     """
     Data class to store information about a function.
     """

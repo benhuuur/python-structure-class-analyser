@@ -3,9 +3,9 @@ from typing import Any
 
 
 @dataclass
-class assignments_info:
+class AttributeInformation:
     """
-    Data class to store information about a varible assignment.
+    Data class to store information about a attribute assignment.
     """
 
     name: str
