@@ -1,5 +1,8 @@
+from _ast import AST, arg
 import ast
 from typing import Any
+
+from PIL import ContainerIO
 
 from ast_manager import print_node
 
@@ -61,6 +64,7 @@ class ASTVisitor(ast.NodeVisitor):
         """
         self.current_class: ast.ClassDef = None
         self.current_function: ast.stmt = None
+        self.current_attribute: ast.stmt = None
         self.methods: list = []
         self.attributes: list = []
         self.inheritance: list = []
@@ -130,12 +134,10 @@ class ASTVisitor(ast.NodeVisitor):
         Returns:
         - ast.AnnAssign: The visited AnnAssign node.
         """
-        if self.current_function is None or self.current_function.name == "__init__":
-            attribute_name = self.visit(node.target)
-            attribute_encapsulation = "Private" if attribute_name.startswith(
-                '_') else "Public"
-            self.attributes.append(AttributeInformation(
-                name=attribute_name, encapsulation=attribute_encapsulation, data_type="Any"))
+        self.current_attribute = node
+        self.visit(node.target)
+        self.current_attribute = None
+
         return node
 
     def visit_Assign(self, node: ast.Assign) -> Any:
@@ -148,19 +150,10 @@ class ASTVisitor(ast.NodeVisitor):
         Returns:
         - ast.Assign: The visited Assign node.
         """
+        self.current_attribute = node
         for target in node.targets:
-            if self.current_function is None or self.current_function.name == "__init__":
-                attribute_type = "Any"
-                if isinstance(node.value, ast.Constant):
-                    attribute_type = self.visit(node.value)
-
-                print(target)
-                attribute_name = self.visit(target)
-                
-                attribute_encapsulation = "Private" if attribute_name.startswith(
-                    '_') else "Public"
-                self.attributes.append(AttributeInformation(
-                    name=attribute_name, encapsulation=attribute_encapsulation, data_type=attribute_type))
+            self.visit(target)
+        self.current_attribute = None
         return node
 
     def visit_Attribute(self, node: ast.Attribute) -> str:
@@ -187,6 +180,19 @@ class ASTVisitor(ast.NodeVisitor):
         Returns:
         - str: The identifier of the visited name.
         """
+
+        if (self.current_attribute is not None):
+            if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_attribute, ast.Attribute))):
+                attribute_name = node.id
+                attribute_encapsulation = "Private" if attribute_name.startswith(
+                    '_') else "Public"
+
+                # TODO
+                # attribute_type =
+
+                self.attributes.append(AttributeInformation(
+                    name=attribute_name, encapsulation=attribute_encapsulation, data_type=None))
+
         return node.id
 
     def visit_Constant(self, node: ast.Constant) -> str:
@@ -200,7 +206,7 @@ class ASTVisitor(ast.NodeVisitor):
         - str: The type of the constant value.
         """
         return f"{type(node.value).__name__}"
-    
+
     def visit_Tuple(self, node: ast.Tuple) -> Any:
         values = list()
         for elt in node.elts:
@@ -208,3 +214,6 @@ class ASTVisitor(ast.NodeVisitor):
             if value is not None:
                 values.append(value)
         return values
+
+    def visit_arg(self, node: arg) -> Any:
+        return node

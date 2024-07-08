@@ -74,7 +74,9 @@ if __name__ == "__main__":
     # Find all Python files in a specific directory and its subdirectories
     files = file_operations.find_files_with_extension(
         # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\multiprocessing", ".py")
-        r"C:\Users\aluno\Desktop\TCC_SENAI_IA-main\TCC_SENAI_IA-main", ".py")
+        r"c:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\site-packages\PIL", ".py")
+    # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\urllib", ".py")
+    # r"C:\Users\aluno\Desktop\TCC_SENAI_IA-main\TCC_SENAI_IA-main", ".py")
 
     classes_data = []
 
@@ -82,9 +84,10 @@ if __name__ == "__main__":
     for file in files:
         tree = ast_from_file(file)
         classes = class_nodes(tree)
-
+        print(file)
         # Process each class node in the file
         for node_class in classes:
+            print_node(node_class)
             my_visitor = ast_visitors.ASTVisitor()
             classes_data.append(my_visitor.visit(node_class))
 
