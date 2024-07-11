@@ -1,10 +1,6 @@
-from _ast import AST, arg
+from _ast import Subscript, arg
 import ast
 from typing import Any
-
-from PIL import ContainerIO
-
-from ast_manager import print_node
 
 from data_class.class_information import ClassInformation
 from data_class.function_information import FunctionInformation
@@ -167,6 +163,18 @@ class ASTVisitor(ast.NodeVisitor):
         - str: The name of the visited attribute.
         """
         if isinstance(node.value, ast.Name):
+            if (self.current_attribute is not None):
+                if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_attribute, (ast.Assign, ast.AnnAssign)))):
+                    attribute_name = node.attr
+                    attribute_encapsulation = "Private" if attribute_name.startswith(
+                        '_') else "Public"
+
+                    # TODO
+                    # attribute_type =
+
+                    self.attributes.append(AttributeInformation(
+                        name=attribute_name, encapsulation=attribute_encapsulation, data_type=None))
+
             return node.attr
         return self.visit(node.value)
 
@@ -216,4 +224,7 @@ class ASTVisitor(ast.NodeVisitor):
         return values
 
     def visit_arg(self, node: arg) -> Any:
+        return node
+
+    def visit_Subscript(self, node: Subscript) -> Any:
         return node
