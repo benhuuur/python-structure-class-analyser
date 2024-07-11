@@ -1,5 +1,4 @@
 import ast
-import os
 from pprint import pprint
 
 import file_operations
@@ -61,42 +60,26 @@ def class_nodes(tree: ast.AST) -> list:
 
 
 if __name__ == "__main__":
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    print(f"Current directory: {current_dir}")
-
-    # Find parent directory
-    parent_dir = os.path.dirname(current_dir)
-    print(f"Parent directory: {parent_dir}")
-
-    # Uncomment to add parent directory to sys.path
-    # sys.path.append(parent_dir)
-
     # Find all Python files in a specific directory and its subdirectories
     files = file_operations.find_files_with_extension(
         # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\multiprocessing", ".py")
         r"c:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\site-packages\PIL", ".py")
-    # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\urllib", ".py")
-    # r"C:\Users\aluno\Desktop\TCC_SENAI_IA-main\TCC_SENAI_IA-main", ".py")
+        # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\urllib", ".py")
 
     classes_data = []
 
-    # Process each Python file
     for file in files:
         tree = ast_from_file(file)
         classes = class_nodes(tree)
         print(file)
-        # Process each class node in the file
         for node_class in classes:
-            print_node(node_class)
+            # print_node(node_class)
             my_visitor = ast_visitors.ASTVisitor()
             classes_data.append(my_visitor.visit(node_class))
 
-    # Print class information
-    for class_data in classes_data:
-        print(class_data, "\n")
+    # for class_data in classes_data:
+    #     print(class_data, "\n")
 
-    # Convert class information to dictionaries
     dict_classes = [current_class.to_dict() for current_class in classes_data]
 
-    # Save class information to a JSON file
-    file_operations.save_to_json(data=dict_classes, filename="class.json")
+    file_operations.save_to_json(data=dict_classes, filename=r"ast_analysis\class.json")
