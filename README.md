@@ -14,4 +14,4 @@ Documentação:
 
 Melhorias Potenciais:
 - Considerar a adição de tratamento para casos mais complexos de AST, como expressões lambda ou compreensões de lista, dependendo dos requisitos específicos do projeto.
-- Adicionar comentários onde a lógica não é trivial, por exemplo, explicando a lógica por trás da determinação do tipo de dado em _get_assignment_data_type().
+- Adicionar comentários onde a lógica não é trivial.
