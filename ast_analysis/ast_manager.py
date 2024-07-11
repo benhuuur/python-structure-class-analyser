@@ -62,13 +62,13 @@ def class_nodes(tree: ast.AST) -> list:
 if __name__ == "__main__":
     # Find all Python files in a specific directory and its subdirectories
     files = file_operations.find_files_with_extension(
-        # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\multiprocessing", ".py")
-        r"c:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\site-packages\PIL", ".py")
-        # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\urllib", ".py")
+        r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\multiprocessing", ".py")
+    # r"c:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\site-packages\PIL", ".py")
+    # r"C:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\urllib", ".py")
 
     classes_data = []
-
     for file in files:
+        file = r"first_try\examples\test.py"
         tree = ast_from_file(file)
         classes = class_nodes(tree)
         print(file)
@@ -76,10 +76,12 @@ if __name__ == "__main__":
             # print_node(node_class)
             my_visitor = ast_visitors.ASTVisitor()
             classes_data.append(my_visitor.visit(node_class))
+        break
 
     # for class_data in classes_data:
     #     print(class_data, "\n")
 
     dict_classes = [current_class.to_dict() for current_class in classes_data]
 
-    file_operations.save_to_json(data=dict_classes, filename=r"ast_analysis\class.json")
+    file_operations.save_to_json(
+        data=dict_classes, filename=r"ast_analysis\class.json")

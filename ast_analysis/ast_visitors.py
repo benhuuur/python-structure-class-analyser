@@ -60,7 +60,7 @@ class ASTVisitor(ast.NodeVisitor):
         """
         self.current_class: ast.ClassDef = None
         self.current_function: ast.stmt = None
-        self.current_attribute: ast.stmt = None
+        self.current_assign: ast.stmt = None
         self.methods: list = []
         self.attributes: list = []
         self.inheritance: list = []
@@ -130,9 +130,9 @@ class ASTVisitor(ast.NodeVisitor):
         Returns:
         - ast.AnnAssign: The visited AnnAssign node.
         """
-        self.current_attribute = node
+        self.current_assign = node
         self.visit(node.target)
-        self.current_attribute = None
+        self.current_assign = None
 
         return node
 
@@ -146,10 +146,10 @@ class ASTVisitor(ast.NodeVisitor):
         Returns:
         - ast.Assign: The visited Assign node.
         """
-        self.current_attribute = node
+        self.current_assign = node
         for target in node.targets:
             self.visit(target)
-        self.current_attribute = None
+        self.current_assign = None
         return node
 
     def visit_Attribute(self, node: ast.Attribute) -> str:
@@ -163,13 +163,13 @@ class ASTVisitor(ast.NodeVisitor):
         - str: The name of the visited attribute.
         """
         if isinstance(node.value, ast.Name):
-            if (self.current_attribute is not None):
-                if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_attribute, (ast.Assign, ast.AnnAssign)))):
+            if (self.current_assign is not None):
+                if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_assign, (ast.Assign, ast.AnnAssign)))):
                     attribute_name = node.attr
                     attribute_encapsulation = "Private" if attribute_name.startswith(
                         '_') else "Public"
 
-                    # TODO
+                    # TODO: make logic to get attibute type
                     # attribute_type =
 
                     self.attributes.append(AttributeInformation(
@@ -189,8 +189,8 @@ class ASTVisitor(ast.NodeVisitor):
         - str: The identifier of the visited name.
         """
 
-        if (self.current_attribute is not None):
-            if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_attribute, ast.Attribute))):
+        if (self.current_assign is not None):
+            if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_assign, ast.Attribute))):
                 attribute_name = node.id
                 attribute_encapsulation = "Private" if attribute_name.startswith(
                     '_') else "Public"
