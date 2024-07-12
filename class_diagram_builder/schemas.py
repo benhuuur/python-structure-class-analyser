@@ -1,9 +1,28 @@
+from typing import Any, List
 from dataclasses import dataclass
-from typing import List
+from file_management import SerializableToDict
 
-from data_class.attribute_information import AttributeInformation
-from data_class.function_information import FunctionInformation
-from file_operations import SerializableToDict
+
+@dataclass
+class AttributeInformation:
+    """
+    Data class to store information about a attribute assignment.
+    """
+
+    name: str
+    data_type: str
+    encapsulation: str
+
+
+@dataclass
+class FunctionInformation:
+    """
+    Data class to store information about a function.
+    """
+
+    name: str
+    args: List[str]
+    return_value: Any
 
 
 @dataclass
@@ -23,7 +42,7 @@ class ClassInformation(SerializableToDict):
     attributes: List[AttributeInformation]
     methods: List[FunctionInformation]
 
-    def to_dict(self) -> dict:
+    def to_dictionary(self) -> dict:
         """
         Converts the ClassInfo object into a dictionary representation suitable for JSON serialization.
 

@@ -11,7 +11,7 @@ class SerializableToDict(ABC):
     """
 
     @abstractmethod
-    def to_dict(self):
+    def to_dictionary(self):
         """
         Converts the object to a dictionary representation.
 
@@ -21,7 +21,7 @@ class SerializableToDict(ABC):
         pass
 
 
-def get_files_from_directory(directory, ignore_patterns=None):
+def get_files_recursively(directory, ignore_patterns=None):
     """
     Recursively retrieves all files in a directory and its subdirectories.
 
@@ -40,14 +40,11 @@ def get_files_from_directory(directory, ignore_patterns=None):
     for item in listdir(directory):
         item_path = join(directory, item)
 
-        # Check if the file matches any ignore pattern
-        if any(pattern in item_path for pattern in ignore_patterns) and len(ignore_patterns) > 0:
-            # Ignore this file if it matches any pattern
+        if any(pattern in item_path for pattern in ignore_patterns):
             continue
 
         if isdir(item_path):
-            files += get_files_from_directory(item_path, ignore_patterns)
-
+            files.extend(get_files_recursively(item_path, ignore_patterns))
         elif isfile(item_path):
             files.append(item_path)
 
@@ -70,7 +67,7 @@ def find_files_with_extension(directory, extension):
     for item in listdir(directory):
         item_path = join(directory, item)
         if isdir(item_path):
-            files += find_files_with_extension(item_path, extension)
+            files.extend(find_files_with_extension(item_path, extension))
         elif item.endswith(extension):
             files.append(item_path)
 
@@ -90,23 +87,17 @@ def read_gitignore_patterns(gitignore_path):
     ignore_patterns = []
     with open(gitignore_path, "r") as file:
         for line in file:
-            # Ignore comments and empty lines
             line = line.strip()
-            if not line or line.startswith("#"):
+            if not line or line.startswith("#") or line.startswith("!"):
                 continue
 
-            # Handle negation patterns
-            if line.startswith("!"):
-                continue
-
-            # Extract the pattern (removing slashes, asterisks, and extra spaces)
             pattern = line.replace("/", "").replace("*", "").split()[0].strip()
             ignore_patterns.append(pattern)
 
     return ignore_patterns
 
 
-def detect_encoding(filename):
+def detect_file_encoding(filename):
     """
     Detects the encoding of a file.
 
@@ -121,7 +112,7 @@ def detect_encoding(filename):
     return result['encoding']
 
 
-def save_to_json(filename, data):
+def save_data_to_json(filename, data):
     """
     Saves data to a JSON file.
 
@@ -129,15 +120,15 @@ def save_to_json(filename, data):
     - filename (str): Path to the JSON file to save.
     - data (dict): Data to be saved to the JSON file.
     """
-    with open(filename, 'w') as file:
-        json.dump(data, file)
+    with open(filename, 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
     # Example usage: finding Python files in a specific directory
-    directory_path = "c:\\Users\\aluno\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\PIL"
+    directory_path = r"c:\Users\aluno\AppData\Local\Programs\Python\Python310\Lib\site-packages\PIL"
     extension = ".py"
-    
+
     python_files = find_files_with_extension(directory_path, extension)
     for file in python_files:
         print(file)
