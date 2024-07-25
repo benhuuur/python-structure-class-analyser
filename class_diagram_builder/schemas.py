@@ -1,6 +1,6 @@
 from typing import Any, List
 from dataclasses import dataclass
-from file_management import SerializableToDict
+from class_diagram_builder.file_management import SerializableToDict
 
 
 @dataclass

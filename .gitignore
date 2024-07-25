@@ -8,6 +8,7 @@ __pycache__/
 .pytest_cache/
 
 # Diretório de ambiente virtual (por exemplo, criado com virtualenv ou pipenv)
+.venv/
 venv/
 env/
 

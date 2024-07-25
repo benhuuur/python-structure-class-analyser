@@ -1,6 +1,7 @@
 import ast
 
-from schemas import ClassInformation, FunctionInformation, AttributeInformation
+from class_diagram_builder.schemas import ClassInformation, FunctionInformation, AttributeInformation
+
 
 class ClassDefCollector(ast.NodeVisitor):
     """
