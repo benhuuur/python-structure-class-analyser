@@ -1,0 +1,325 @@
+Module(
+    body=[
+        ImportFrom(
+            module='__future__',
+            names=[alias(name='annotations')],
+            level=0
+        ),
+        Import(names=[alias(name='io')]),
+        ImportFrom(
+            module='typing',
+            names=[
+                alias(name='IO'),
+                alias(name='AnyStr'),
+                alias(name='Generic'),
+                alias(name='Literal')
+            ],
+            level=0
+        ),
+        ClassDef(
+            name='ContainerIO',
+            bases=[
+                Subscript(
+                    value=Name(id='Generic', ctx=Load()),
+                    slice=Name(id='AnyStr', ctx=Load()),
+                    ctx=Load()
+                )
+            ],
+            keywords=[],
+            body=[
+                Expr(value=Constant(value='\n    A file object that provides read access to a part of an existing\n    file (for example a TAR file).\n    ')),
+                FunctionDef(
+                    name='__init__',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self'),
+                            arg(arg='file', annotation=Subscript(value=Name(id='IO', ctx=Load()), slice=Name(id='AnyStr', ctx=Load()), ctx=Load())),
+                            arg(arg='offset', annotation=Name(id='int', ctx=Load())),
+                            arg(arg='length', annotation=Name(id='int', ctx=Load()))
+                        ],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[
+                        Expr(value=Constant(value='\n        Create file object.\n\n        :param file: Existing file.\n        :param offset: Start of region, in bytes.\n        :param length: Size of region, in bytes.\n        ')),
+                        AnnAssign(
+                            target=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Store()),
+                            annotation=Subscript(value=Name(id='IO', ctx=Load()), slice=Name(id='AnyStr', ctx=Load()), ctx=Load()),
+                            value=Name(id='file', ctx=Load()),
+                            simple=0
+                        ),
+                        Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())], value=Constant(value=0)),
+                        Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='offset', ctx=Store())], value=Name(id='offset', ctx=Load())),
+                        Assign(targets=[Attribute(value=Name(id='self', ctx=Load()), attr='length', ctx=Store())], value=Name(id='length', ctx=Load())),
+                        Expr(value=Call(func=Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='seek', ctx=Load()), args=[Name(id='offset', ctx=Load())], keywords=[]))
+                    ],
+                    decorator_list=[],
+                    returns=Constant(value=None)
+                ),
+                FunctionDef(
+                    name='isatty',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[Return(value=Constant(value=False))],
+                    decorator_list=[],
+                    returns=Name(id='bool', ctx=Load())
+                ),
+                FunctionDef(
+                    name='seek',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self'),
+                            arg(arg='offset', annotation=Name(id='int', ctx=Load())),
+                            arg(arg='mode', annotation=Subscript(
+                                value=Name(id='Literal', ctx=Load()),
+                                slice=Tuple(
+                                    elts=[
+                                        Constant(value=0),
+                                        Constant(value=1),
+                                        Constant(value=2)
+                                    ],
+                                    ctx=Load()
+                                ),
+                                ctx=Load()
+                            ))
+                        ],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[Attribute(value=Name(id='io', ctx=Load()), attr='SEEK_SET', ctx=Load())]
+                    ),
+                    body=[
+                        Expr(value=Constant(value='\n        Move file pointer.\n\n        :param offset: Offset in bytes.\n        :param mode: Starting position. Use 0 for beginning of region, 1\n           for current offset, and 2 for end of region.  You cannot move\n           the pointer outside the defined region.\n        ')),
+                        If(
+                            test=Compare(left=Name(id='mode', ctx=Load()), ops=[Eq()], comparators=[Constant(value=1)]),
+                            body=[Assign(
+                                targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())],
+                                value=BinOp(left=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load()), op=Add(), right=Name(id='offset', ctx=Load()))
+                            )],
+                            orelse=[
+                                If(
+                                    test=Compare(left=Name(id='mode', ctx=Load()), ops=[Eq()], comparators=[Constant(value=2)]),
+                                    body=[Assign(
+                                        targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())],
+                                        value=BinOp(left=Attribute(value=Name(id='self', ctx=Load()), attr='length', ctx=Load()), op=Add(), right=Name(id='offset', ctx=Load()))
+                                    )],
+                                    orelse=[Assign(
+                                        targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())],
+                                        value=Name(id='offset', ctx=Load())
+                                    )]
+                                )
+                            ]
+                        ),
+                        Assign(
+                            targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())],
+                            value=Call(
+                                func=Name(id='max', ctx=Load()),
+                                args=[Constant(value=0), Call(
+                                    func=Name(id='min', ctx=Load()),
+                                    args=[
+                                        Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load()),
+                                        Attribute(value=Name(id='self', ctx=Load()), attr='length', ctx=Load())
+                                    ],
+                                    keywords=[]
+                                )],
+                                keywords=[]
+                            )
+                        ),
+                        Expr(value=Call(
+                            func=Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='seek', ctx=Load()),
+                            args=[BinOp(left=Attribute(value=Name(id='self', ctx=Load()), attr='offset', ctx=Load()), op=Add(), right=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load()))],
+                            keywords=[]
+                        ))
+                    ],
+                    decorator_list=[],
+                    returns=Constant(value=None)
+                ),
+                FunctionDef(
+                    name='tell',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[Expr(value=Constant(value='\n        Get current file pointer.\n\n        :returns: Offset from start of region, in bytes.\n        ')), Return(value=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load()))],
+                    decorator_list=[],
+                    returns=Name(id='int', ctx=Load())
+                ),
+                FunctionDef(
+                    name='read',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[
+                            arg(arg='self'),
+                            arg(arg='n', annotation=Name(id='int', ctx=Load()))
+                        ],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[Constant(value=0)]
+                    ),
+                    body=[Expr(value=Constant(value='\n        Read data.\n\n        :param n: Number of bytes to read. If omitted or zero,\n            read until end of region.\n        :returns: An 8-bit string.\n        ')), If(
+                        test=Name(id='n', ctx=Load()),
+                        body=[Assign(
+                            targets=[Name(id='n', ctx=Store())],
+                            value=Call(
+                                func=Name(id='min', ctx=Load()),
+                                args=[
+                                    Name(id='n', ctx=Load()),
+                                    BinOp(
+                                        left=Attribute(value=Name(id='self', ctx=Load()), attr='length', ctx=Load()),
+                                        op=Sub(),
+                                        right=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load())
+                                    )
+                                ],
+                                keywords=[]
+                            )
+                        )],
+                        orelse=[Assign(
+                            targets=[Name(id='n', ctx=Store())],
+                            value=BinOp(
+                                left=Attribute(value=Name(id='self', ctx=Load()), attr='length', ctx=Load()),
+                                op=Sub(),
+                                right=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load())
+                            )
+                        )]
+                    ), If(
+                        test=UnaryOp(op=Not(), operand=Name(id='n', ctx=Load())),
+                        body=[Return(value=IfExp(
+                            test=Compare(
+                                left=Constant(value='b'),
+                                ops=[In()],
+                                comparators=[Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='mode', ctx=Load())]
+                            ),
+                            body=Constant(value=b''),
+                            orelse=Constant(value='')
+                        ))],
+                        orelse=[]
+                    ), Assign(
+                        targets=[Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Store())],
+                        value=BinOp(left=Attribute(value=Name(id='self', ctx=Load()), attr='pos', ctx=Load()), op=Add(), right=Name(id='n', ctx=Load()))
+                    ), Return(value=Call(
+                        func=Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='read', ctx=Load()),
+                        args=[Name(id='n', ctx=Load())],
+                        keywords=[]
+                    ))],
+                    decorator_list=[],
+                    returns=Name(id='AnyStr', ctx=Load())
+                ),
+                FunctionDef(
+                    name='readline',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[Expr(value=Constant(value='\n        Read a line of text.\n\n        :returns: An 8-bit string.\n        ')), AnnAssign(
+                        target=Name(id='s', ctx=Store()),
+                        annotation=Name(id='AnyStr', ctx=Load()),
+                        value=IfExp(
+                            test=Compare(
+                                left=Constant(value='b'),
+                                ops=[In()],
+                                comparators=[Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='mode', ctx=Load())]
+                            ),
+                            body=Constant(value=b''),
+                            orelse=Constant(value='')
+                        ),
+                        simple=1
+                    ), Assign(
+                        targets=[Name(id='newline_character', ctx=Store())],
+                        value=IfExp(
+                            test=Compare(
+                                left=Constant(value='b'),
+                                ops=[In()],
+                                comparators=[Attribute(value=Attribute(value=Name(id='self', ctx=Load()), attr='fh', ctx=Load()), attr='mode', ctx=Load())]
+                            ),
+                            body=Constant(value=b'\n'),
+                            orelse=Constant(value='\n')
+                        )
+                    ), While(
+                        test=Constant(value=True),
+                        body=[Assign(
+                            targets=[Name(id='c', ctx=Store())],
+                            value=Call(
+                                func=Attribute(value=Name(id='self', ctx=Load()), attr='read', ctx=Load()),
+                                args=[Constant(value=1)],
+                                keywords=[]
+                            )
+                        ), If(
+                            test=UnaryOp(op=Not(), operand=Name(id='c', ctx=Load())),
+                            body=[Break()],
+                            orelse=[]
+                        ), Assign(
+                            targets=[Name(id='s', ctx=Store())],
+                            value=BinOp(left=Name(id='s', ctx=Load()), op=Add(), right=Name(id='c', ctx=Load()))
+                        ), If(
+                            test=Compare(
+                                left=Name(id='c', ctx=Load()),
+                                ops=[Eq()],
+                                comparators=[Name(id='newline_character', ctx=Load())]
+                            ),
+                            body=[Break()],
+                            orelse=[]
+                        )],
+                        orelse=[]
+                    ), Return(value=Name(id='s', ctx=Load()))
+                    ],
+                    decorator_list=[],
+                    returns=Name(id='AnyStr', ctx=Load())
+                ),
+                FunctionDef(
+                    name='readlines',
+                    args=arguments(
+                        posonlyargs=[],
+                        args=[arg(arg='self')],
+                        kwonlyargs=[],
+                        kw_defaults=[],
+                        defaults=[]
+                    ),
+                    body=[Expr(value=Constant(value='\n        Read multiple lines of text.\n\n        :returns: A list of 8-bit strings.\n        ')), Assign(
+                        targets=[Name(id='lines', ctx=Store())],
+                        value=List(elts=[], ctx=Load())
+                    ), While(
+                        test=Constant(value=True),
+                        body=[Assign(
+                            targets=[Name(id='s', ctx=Store())],
+                            value=Call(
+                                func=Attribute(value=Name(id='self', ctx=Load()), attr='readline', ctx=Load()),
+                                args=[],
+                                keywords=[]
+                            )
+                        ), If(
+                            test=UnaryOp(op=Not(), operand=Name(id='s', ctx=Load())),
+                            body=[Break()],
+                            orelse=[]
+                        ), Expr(value=Call(
+                            func=Attribute(value=Name(id='lines', ctx=Load()), attr='append', ctx=Load()),
+                            args=[Name(id='s', ctx=Load())],
+                            keywords=[]
+                        ))],
+                        orelse=[]
+                    ), Return(value=Name(id='lines', ctx=Load()))],
+                    decorator_list=[],
+                    returns=Subscript(
+                        value=Name(id='list', ctx=Load()),
+                        slice=Name(id='AnyStr', ctx=Load()),
+                        ctx=Load()
+                    )
+                )
+            ],
+            decorator_list=[]
+        )
+    ],
+    type_ignores=[]
+)

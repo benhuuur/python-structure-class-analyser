@@ -1,32 +1,111 @@
 [
     {
-        "class_name": "JSONDecodeError",
+        "class_name": "Finalize",
         "inheritance": [
-            "ValueError"
+            "object"
         ],
         "attributes": [
             {
-                "name": "msg",
+                "name": "_weakref",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "_callback",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "_args",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "_kwargs",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "_key",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "_pid",
+                "data_type": null,
+                "encapsulation": "Private"
+            }
+        ],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self",
+                    "obj",
+                    "callback",
+                    "args",
+                    "kwargs",
+                    "exitpriority"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "__call__",
+                "args": [
+                    "self",
+                    "wr",
+                    "_finalizer_registry",
+                    "sub_debug",
+                    "getpid"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "cancel",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "still_active",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "__repr__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            }
+        ]
+    },
+    {
+        "class_name": "ForkAwareThreadLock",
+        "inheritance": [
+            "object"
+        ],
+        "attributes": [
+            {
+                "name": "_lock",
+                "data_type": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "acquire",
                 "data_type": null,
                 "encapsulation": "Public"
             },
             {
-                "name": "doc",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "pos",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "lineno",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "colno",
+                "name": "release",
                 "data_type": null,
                 "encapsulation": "Public"
             }
@@ -35,10 +114,48 @@
             {
                 "name": "__init__",
                 "args": [
-                    "self",
-                    "msg",
-                    "doc",
-                    "pos"
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "_at_fork_reinit",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Private"
+            },
+            {
+                "name": "__enter__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            },
+            {
+                "name": "__exit__",
+                "args": [
+                    "self"
+                ],
+                "return_value": null,
+                "encapsulation": "Public"
+            }
+        ]
+    },
+    {
+        "class_name": "ForkAwareLocal",
+        "inheritance": [
+            "threading.local"
+        ],
+        "attributes": [],
+        "methods": [
+            {
+                "name": "__init__",
+                "args": [
+                    "self"
                 ],
                 "return_value": null,
                 "encapsulation": "Public"
@@ -47,237 +164,6 @@
                 "name": "__reduce__",
                 "args": [
                     "self"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            }
-        ]
-    },
-    {
-        "class_name": "JSONDecoder",
-        "inheritance": [
-            "object"
-        ],
-        "attributes": [
-            {
-                "name": "object_hook",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_float",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_int",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_constant",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "strict",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "object_pairs_hook",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_object",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_array",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "parse_string",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "memo",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "scan_once",
-                "data_type": null,
-                "encapsulation": "Public"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "decode",
-                "args": [
-                    "self",
-                    "s",
-                    "_w"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "raw_decode",
-                "args": [
-                    "self",
-                    "s",
-                    "idx"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            }
-        ]
-    },
-    {
-        "class_name": "JSONEncoder",
-        "inheritance": [
-            "object"
-        ],
-        "attributes": [
-            {
-                "name": "item_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "key_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "skipkeys",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "ensure_ascii",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "check_circular",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "allow_nan",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "sort_keys",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "indent",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "item_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "item_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "key_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "key_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "item_separator",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "default",
-                "data_type": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "_iterencode",
-                "data_type": null,
-                "encapsulation": "Private"
-            },
-            {
-                "name": "_iterencode",
-                "data_type": null,
-                "encapsulation": "Private"
-            }
-        ],
-        "methods": [
-            {
-                "name": "__init__",
-                "args": [
-                    "self"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "default",
-                "args": [
-                    "self",
-                    "o"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "encode",
-                "args": [
-                    "self",
-                    "o"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "iterencode",
-                "args": [
-                    "self",
-                    "o",
-                    "_one_shot"
-                ],
-                "return_value": null,
-                "encapsulation": "Public"
-            },
-            {
-                "name": "floatstr",
-                "args": [
-                    "o",
-                    "allow_nan",
-                    "_repr",
-                    "_inf",
-                    "_neginf"
                 ],
                 "return_value": null,
                 "encapsulation": "Public"

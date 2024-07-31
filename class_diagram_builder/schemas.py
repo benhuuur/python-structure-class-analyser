@@ -62,3 +62,8 @@ class ClassInformation(SerializableToDict):
             "attributes": [attribute.__dict__ for attribute in self.attributes],
             "methods": [method.__dict__ for method in self.methods],
         }
+
+@dataclass
+class RelationshipInformation:
+    type: str
+    related: str

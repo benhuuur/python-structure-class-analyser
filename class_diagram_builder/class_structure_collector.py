@@ -1,6 +1,6 @@
 import ast
 
-from class_diagram_builder.schemas import ClassInformation, FunctionInformation, AttributeInformation
+from class_diagram_builder.schemas import ClassInformation, FunctionInformation, AttributeInformation, RelationshipInformation
 
 
 class ClassDefCollector(ast.NodeVisitor):
@@ -30,7 +30,7 @@ class ClassDefCollector(ast.NodeVisitor):
 
 class ClassNodeVisitor(ast.NodeVisitor):
     """
-    A NodeVisitor implementation to visit and analyze various nodes in AST.
+    A NodeVisitor implementation to visit and analyze various nodes in AST and get metadata from the classes.
 
     Attributes:
     - current_class (ast.ClassDef or None): Current ClassDef node being visited.
@@ -47,10 +47,8 @@ class ClassNodeVisitor(ast.NodeVisitor):
         self.current_class: ast.ClassDef = None
         self.current_function: ast.stmt = None
         self.current_assign: ast.stmt = None
-        self.current_inheritance: ast.stmt = None
         self.methods = []
         self.attributes = []
-        self.inheritance = []
 
     def visit_ClassDef(self, node: ast.ClassDef) -> ClassInformation:
         """
@@ -65,13 +63,8 @@ class ClassNodeVisitor(ast.NodeVisitor):
         self.current_class = node
         self.generic_visit(node)
 
-        for base in node.bases:
-            self.current_inheritance = base
-            self.inheritance.append(self.visit(base))
-            self.current_inheritance = None
-
         class_info = ClassInformation(
-            name=node.name, inheritance=self.inheritance, methods=self.methods, attributes=self.attributes
+            name=node.name, inheritance=None, methods=self.methods, attributes=self.attributes
         )
 
         return class_info
@@ -89,7 +82,8 @@ class ClassNodeVisitor(ast.NodeVisitor):
         args = [arg.arg for arg in node.args.args]
 
         function_name: str = node.name
-        function_encapsulation: str = "Public" if function_name.startswith('__') and function_name.endswith('__') else "Private" if function_name.startswith('_') else "Public"
+        function_encapsulation: str = "Public" if function_name.startswith('__') and function_name.endswith(
+            '__') else "Private" if function_name.startswith('_') else "Public"
 
         self.methods.append(FunctionInformation(
             name=function_name, args=args, return_value=None, encapsulation=function_encapsulation))
@@ -164,9 +158,6 @@ class ClassNodeVisitor(ast.NodeVisitor):
         Returns:
         - str: The name of the visited attribute.
         """
-        if self.current_inheritance is not None:
-            return f"{self.visit(node.value)}.{node.attr}"
-
         if isinstance(node.value, ast.Name):
             if (self.current_assign is not None):
                 if (self.current_function is None) or ((self.current_function.name == "__init__") and (isinstance(self.current_assign, (ast.Assign, ast.AnnAssign)))):
@@ -241,6 +232,34 @@ class ClassNodeVisitor(ast.NodeVisitor):
         # skipp this node
         return node
 
+
+class RelationshipAnalyzer(ast.NodeVisitor):
+    def __init__(self, classes: set) -> None:
+        self.classes = classes
+        self.relationships = list()
+        self.current_inheritance: ast.stmt = None
+
+    def visit_ClassDef(self, node: ast.ClassDef):
+        for base in node.bases:
+            self.current_inheritance = base
+            self.relationships.append(RelationshipInformation(
+                type="inheritance", related=self.visit(base)))
+            self.current_inheritance = None
+        return self.relationships
+
+    def visit_Attribute(self, node: ast.Attribute):
+        """
+        Visits an Attribute node and retrieves the attribute name.
+
+        Args:
+        - node (ast.Attribute): Attribute node to visit.
+
+        Returns:
+        - str: The name of the visited attribute.
+        """
+        if self.current_inheritance is not None:
+            return f"{self.visit(node.value)}.{node.attr}"
+
     def visit_Subscript(self, node: ast.Subscript) -> str:
         """
         Visits a Subscript node and retrieves its string representation.
@@ -253,5 +272,3 @@ class ClassNodeVisitor(ast.NodeVisitor):
         """
         if self.current_inheritance is not None:
             return f"{self.visit(node.value)}[{self.visit(node.slice)}]"
-
-        return node
