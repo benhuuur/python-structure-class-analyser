@@ -23,6 +23,7 @@ class FunctionInformation:
     name: str
     args: List[str]
     return_value: Any
+    encapsulation: str
 
 
 @dataclass

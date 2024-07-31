@@ -40,14 +40,16 @@
                     "doc",
                     "pos"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "__reduce__",
                 "args": [
                     "self"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             }
         ]
     },
@@ -119,7 +121,8 @@
                 "args": [
                     "self"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "decode",
@@ -128,7 +131,8 @@
                     "s",
                     "_w"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "raw_decode",
@@ -137,7 +141,8 @@
                     "s",
                     "idx"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             }
         ]
     },
@@ -234,7 +239,8 @@
                 "args": [
                     "self"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "default",
@@ -242,7 +248,8 @@
                     "self",
                     "o"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "encode",
@@ -250,7 +257,8 @@
                     "self",
                     "o"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "iterencode",
@@ -259,7 +267,8 @@
                     "o",
                     "_one_shot"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             },
             {
                 "name": "floatstr",
@@ -270,7 +279,8 @@
                     "_inf",
                     "_neginf"
                 ],
-                "return_value": null
+                "return_value": null,
+                "encapsulation": "Public"
             }
         ]
     }

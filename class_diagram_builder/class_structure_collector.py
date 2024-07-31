@@ -88,8 +88,11 @@ class ClassNodeVisitor(ast.NodeVisitor):
         """
         args = [arg.arg for arg in node.args.args]
 
+        function_name: str = node.name
+        function_encapsulation: str = "Public" if function_name.startswith('__') and function_name.endswith('__') else "Private" if function_name.startswith('_') else "Public"
+
         self.methods.append(FunctionInformation(
-            name=node.name, args=args, return_value=None))
+            name=function_name, args=args, return_value=None, encapsulation=function_encapsulation))
 
         self.current_function = node
         self.generic_visit(node)
