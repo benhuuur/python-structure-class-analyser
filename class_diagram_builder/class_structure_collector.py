@@ -64,7 +64,7 @@ class ClassNodeVisitor(ast.NodeVisitor):
         self.generic_visit(node)
 
         class_info = ClassInformation(
-            name=node.name, inheritance=None, methods=self.methods, attributes=self.attributes
+            module=None, name=node.name, relationships=None, methods=self.methods, attributes=self.attributes
         )
 
         return class_info
@@ -270,5 +270,40 @@ class RelationshipAnalyzer(ast.NodeVisitor):
         Returns:
         - str: String representation of the visited Subscript node.
         """
-        if self.current_inheritance is not None:
-            return f"{self.visit(node.value)}[{self.visit(node.slice)}]"
+        # if self.current_inheritance is not None:
+        return f"{self.visit(node.value)}[{self.visit(node.slice)}]"
+
+    def visit_Name(self, node: ast.Name) -> str:
+        """
+        Visits a Name node and retrieves the identifier.
+
+        Args:
+        - node (ast.Name): Name node to visit.
+
+        Returns:
+        - str: The identifier of the visited name.
+        """
+        return node.id
+
+    def visit_Call(self, node: ast.Call) -> str:
+        function_name = self.visit(node.func)
+        args = ""
+        for index, arg in enumerate(node.args):
+            if index != len(node.args) - 1:
+                args += f"{self.visit(arg)}, "
+            else:
+                args += f"{self.visit(arg)}"
+
+        return f"{function_name}({args})"
+
+    def visit_Constant(self, node: ast.Constant) -> str:
+        return node.value
+
+    def visit_Tuple(self, node: ast.Tuple) -> str:
+        values = ""
+        for index, elt in enumerate(node.elts):
+            if index != len(node.elts) - 1:
+                values += f"{self.visit(elt)}, "
+            else:
+                values += f"{self.visit(elt)}"
+        return f"({values})"

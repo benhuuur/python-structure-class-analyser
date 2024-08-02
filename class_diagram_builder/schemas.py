@@ -6,7 +6,7 @@ from class_diagram_builder.file_management import SerializableToDict
 @dataclass
 class AttributeInformation:
     """
-    Data class to store information about a attribute assignment.
+    Data class to store information about a attribute.
     """
 
     name: str
@@ -27,6 +27,15 @@ class FunctionInformation:
 
 
 @dataclass
+class RelationshipInformation:
+    """
+    Data class to store information about a UML relationship.
+    """
+    type: str
+    related: str
+
+
+@dataclass
 class ClassInformation(SerializableToDict):
     """
     Data class to store information about a class.
@@ -38,8 +47,9 @@ class ClassInformation(SerializableToDict):
     - methods (List[FunctionInfo]): List of FunctionInfo objects representing methods.
     """
 
+    module: str
     name: str
-    inheritance: List[str]
+    relationships: List[RelationshipInformation]
     attributes: List[AttributeInformation]
     methods: List[FunctionInformation]
 
@@ -57,13 +67,9 @@ class ClassInformation(SerializableToDict):
             }
         """
         return {
+            "module": self.module,
             "class_name": self.name,
-            "inheritance": self.inheritance,
+            "relationships": [relationship.__dict__ for relationship in self.relationships],
             "attributes": [attribute.__dict__ for attribute in self.attributes],
             "methods": [method.__dict__ for method in self.methods],
         }
-
-@dataclass
-class RelationshipInformation:
-    type: str
-    related: str
