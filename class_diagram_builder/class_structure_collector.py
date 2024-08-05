@@ -64,7 +64,7 @@ class ClassNodeVisitor(ast.NodeVisitor):
         self.generic_visit(node)
 
         class_info = ClassInformation(
-            module=None, name=node.name, relationships=None, methods=self.methods, attributes=self.attributes
+            modules=None, name=node.name, relationships=None, methods=tuple(self.methods), attributes=tuple(self.attributes)
         )
 
         return class_info
@@ -234,18 +234,23 @@ class ClassNodeVisitor(ast.NodeVisitor):
 
 
 class RelationshipAnalyzer(ast.NodeVisitor):
-    def __init__(self, classes: set) -> None:
-        self.classes = classes
+    def __init__(self, alias: dict) -> None:
+        self.alias = alias if alias else dict()
         self.relationships = list()
         self.current_inheritance: ast.stmt = None
 
     def visit_ClassDef(self, node: ast.ClassDef):
         for base in node.bases:
             self.current_inheritance = base
-            self.relationships.append(RelationshipInformation(
-                type="inheritance", related=self.visit(base)))
+            inheritance = self.visit(base)
+            if inheritance in self.alias.values():
+                self.relationships.append(RelationshipInformation(
+                    type="inheritance", related=self.alias[inheritance]))
+            else:
+                self.relationships.append(RelationshipInformation(
+                    type="inheritance", related=inheritance))
             self.current_inheritance = None
-        return self.relationships
+        return tuple(self.relationships)
 
     def visit_Attribute(self, node: ast.Attribute):
         """
@@ -307,3 +312,35 @@ class RelationshipAnalyzer(ast.NodeVisitor):
             else:
                 values += f"{self.visit(elt)}"
         return f"({values})"
+
+
+class ImportColector(ast.NodeVisitor):
+    def __init__(self) -> None:
+        self.imports = list()
+
+    def visit_Import(self, node: ast.Import):
+        self.imports.append(node)
+
+    def visitvisit_ImportFromImport(self, node: ast.Import):
+        self.imports.append(node)
+
+
+class AliasVisitor(ast.NodeVisitor):
+    def __init__(self) -> None:
+        self.alias_import = dict()
+
+    def visit_Import(self, node: ast.Import):
+        for name in node.names:
+            alias_import = self.visit(name)
+            if alias_import:
+                self.alias_import.update(alias_import)
+
+    def visit_ImportFrom(self, node: ast.ImportFrom):
+        for name in node.names:
+            alias_import = self.visit(name)
+            if alias_import:
+                self.alias_import.update(alias_import)
+
+    def visit_alias(self, node: ast.alias):
+        if node.asname:
+            return {node.asname: node.name}

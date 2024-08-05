@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, Tuple
 from dataclasses import dataclass
 from class_diagram_builder.file_management import SerializableToDict
 
@@ -21,7 +21,7 @@ class FunctionInformation:
     """
 
     name: str
-    args: List[str]
+    args: Tuple[str]
     return_value: Any
     encapsulation: str
 
@@ -41,35 +41,37 @@ class ClassInformation(SerializableToDict):
     Data class to store information about a class.
 
     Attributes:
+    - modules (Tuple[str]): Tuple of module names where the class is defined.
     - name (str): The name of the class.
-    - inheritance (List[str]): List of inherited class names.
-    - attributes (List[AttributeInfo]): List of AttributeInfo objects representing attributes.
-    - methods (List[FunctionInfo]): List of FunctionInfo objects representing methods.
+    - relationships (Tuple[RelationshipInformation]): Tuple of RelationshipInformation objects representing relationships with other classes.
+    - attributes (Tuple[AttributeInformation]): Tuple of AttributeInformation objects representing attributes of the class.
+    - methods (Tuple[FunctionInformation]): Tuple of FunctionInformation objects representing methods of the class.
     """
 
-    module: str
+    modules: Tuple[str]
     name: str
-    relationships: List[RelationshipInformation]
-    attributes: List[AttributeInformation]
-    methods: List[FunctionInformation]
+    relationships: Tuple[RelationshipInformation]
+    attributes: Tuple[AttributeInformation]
+    methods: Tuple[FunctionInformation]
 
     def to_dictionary(self) -> dict:
         """
-        Converts the ClassInfo object into a dictionary representation suitable for JSON serialization.
+        Converts the ClassInformation object into a dictionary representation suitable for JSON serialization.
 
         Returns:
         - dict: A dictionary containing the class information.
             {
-                "class_name": str,          # The name of the class.
-                "inheritance": List[str],   # List of inherited class names.
-                "attributes": List[dict],   # List of dictionaries representing attributes (AttributeInfo objects).
-                "methods": List[dict]       # List of dictionaries representing methods (FunctionInfo objects).
+                "modules": Tuple[str],                      # Tuple of module names where the class is defined.
+                "class_name": str,                         # The name of the class.
+                "relationships": Tuple[dict],              # Tuple of dictionaries representing relationships (RelationshipInformation objects).
+                "attributes": Tuple[dict],                 # Tuple of dictionaries representing attributes (AttributeInformation objects).
+                "methods": Tuple[dict]                     # Tuple of dictionaries representing methods (FunctionInformation objects).
             }
         """
         return {
-            "module": self.module,
+            "modules": tuple(self.modules),
             "class_name": self.name,
-            "relationships": [relationship.__dict__ for relationship in self.relationships],
-            "attributes": [attribute.__dict__ for attribute in self.attributes],
-            "methods": [method.__dict__ for method in self.methods],
+            "relationships": tuple(relationship.__dict__ for relationship in self.relationships),
+            "attributes": tuple(attribute.__dict__ for attribute in self.attributes),
+            "methods": tuple(method.__dict__ for method in self.methods),
         }
