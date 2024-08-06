@@ -1,6 +1,6 @@
 from typing import Any, Tuple
 from dataclasses import dataclass
-from class_diagram_builder.file_management import SerializableToDict
+from py_class_extractor.file_management import SerializableToDict
 
 
 @dataclass
