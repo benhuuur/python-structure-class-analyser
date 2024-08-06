@@ -1,26 +1,8 @@
-from class_diagram_builder import class_structure_collector, file_management, ast_management
-
+from py_class_extractor import generate_classes_dicts_from_file, generate_classes_dicts_from_directory
+from py_class_extractor.file_management import save_data_to_json
 
 if __name__ == "__main__":
-    # Find all Python files in a specified directory and its subdirectories
-    target_directory = r"C:\Users\Aluno\AppData\Local\Programs\Python\Python312\Lib\json"
-    python_files = file_management.find_files_with_extension(
-        target_directory, ".py")
-
-    print(python_files)
-
-    class_data_list = []
-    for file_path in python_files:
-        ast_tree = ast_management.parse_ast_from_file(file_path)
-        class_nodes = ast_management.extract_class_nodes(ast_tree)
-        print(file_path)
-        for class_node in class_nodes:
-            visitor = class_structure_collector.ClassNodeVisitor()
-            class_data_list.append(visitor.visit(class_node))
-
-    class_dicts = [current_class.to_dictionary()
-                   for current_class in class_data_list]
-
-    file_management.save_data_to_json(
-        data=class_dicts, filename=r"class.json"
-    )
+    save_data_to_json("class.json", generate_classes_dicts_from_directory(
+        r"C:\Users\Aluno\AppData\Local\Programs\Python\Python312\Lib\tkinter"))
+    save_data_to_json("class.json",  generate_classes_dicts_from_file(
+        r"C:\Users\Aluno\AppData\Local\Programs\Python\Python312\Lib\tkinter\simpledialog.py"))
