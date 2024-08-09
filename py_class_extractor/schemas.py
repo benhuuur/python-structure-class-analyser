@@ -70,7 +70,7 @@ class ClassInformation(SerializableToDict):
         """
         return {
             "modules": tuple(self.modules),
-            "class_name": self.name,
+            "name": self.name,
             "relationships": tuple(relationship.__dict__ for relationship in self.relationships),
             "attributes": tuple(attribute.__dict__ for attribute in self.attributes),
             "methods": tuple(method.__dict__ for method in self.methods),
